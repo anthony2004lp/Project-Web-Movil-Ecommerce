@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-white">
+
+<!-- SEARCH -->
+<div class="px-4 pt-6 pb-4">
+    <div class="relative">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-black/40">🔍</span>
+        <input
+                type="search"
+                placeholder="Buscar productos..."
+                class="w-full pl-11 pr-4 py-3 bg-[#f5f5f5] rounded-xl border-0 focus:ring-2 focus:ring-[#0047AB] outline-none"
+        />
+    </div>
+</div>
+
+<!-- HERO SLIDER -->
+<div class="relative h-64 overflow-hidden mx-4 rounded-2xl mb-6">
+
+    <div id="slider" class="h-full relative">
+
+        <!-- Slides -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-8 transition-opacity duration-500"
+             th:each="slide, stat : ${heroSlides}"
+             th:attr="data-index=${stat.index}"
+             th:style="'background:' + ${slide.bg}"
+             th:classappend="${stat.index == 0} ? ' opacity-100' : ' opacity-0'">
+
+            <h2 class="mb-2 text-center" th:text="${slide.title}"></h2>
+            <p class="text-white/90 text-center" th:text="${slide.subtitle}"></p>
+        </div>
+
+    </div>
+
+    <!-- Prev -->
+    <button onclick="prevSlide()"
+            class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+        ⬅
+    </button>
+
+    <!-- Next -->
+    <button onclick="nextSlide()"
+            class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+        ➡
+    </button>
+
+    <!-- DOTS -->
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        <button th:each="slide, stat : ${heroSlides}"
+                th:attr="data-index=${stat.index}"
+                onclick="goToSlide(this)"
+                class="dot w-2 h-2 rounded-full bg-white/50 transition-all">
+        </button>
+    </div>
+
+</div>
+
+<!-- CATEGORIES -->
+<div class="px-4 mb-6">
+    <h3 class="mb-4">Categorías</h3>
+
+    <div class="grid grid-cols-3 gap-3">
+        <a th:each="category : ${categories}"
+           th:href="@{/productos}"
+           class="bg-[#f5f5f5] rounded-2xl p-4 flex flex-col items-center justify-center gap-2 hover:bg-[#0047AB] hover:text-white transition-all group">
+
+            <span class="text-3xl" th:text="${category.icon}"></span>
+
+            <span class="text-sm text-center"
+                  th:text="${category.name}"></span>
+
+            <span class="text-xs text-black/40 group-hover:text-white/70"
+                  th:text="${category.count} + ' items'"></span>
+        </a>
+    </div>
+</div>
+
+<!-- PRODUCTOS -->
+<div class="px-4 pb-6">
+    <div class="flex items-center justify-between mb-4">
+        <h3>Productos Destacados</h3>
+
+        <a th:href="@{/productos}" class="text-[#0047AB]">
+            Ver todos
+        </a>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+        <a th:each="producto : ${productos}"
+           th:href="@{'/productos/' + ${producto.id}}"
+           class="bg-white border border-black/10 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+
+            <div class="aspect-square bg-[#f5f5f5] flex items-center justify-center">
+                📦
+            </div>
+
+            <div class="p-3">
+                <h4 class="mb-1 line-clamp-1"
+                    th:text="${producto.nombre}"></h4>
+
+                <p class="text-[#0047AB]"
+                   th:text="'$' + ${producto.precio}"></p>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- JS SLIDER -->
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll("#slider > div");
+    const dots = document.querySelectorAll(".dot");
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove("opacity-100");
+            slide.classList.add("opacity-0");
+
+            if (dots[i]) {
+                dots[i].classList.remove("bg-white", "w-6");
+                dots[i].classList.add("bg-white/50", "w-2");
+            }
+        });
+
+        slides[index].classList.remove("opacity-0");
+        slides[index].classList.add("opacity-100");
+
+        if (dots[index]) {
+            dots[index].classList.remove("bg-white/50", "w-2");
+            dots[index].classList.add("bg-white", "w-6");
+        }
+
+        currentSlide = index;
+    }
+
+    function nextSlide() {
+        let next = (currentSlide + 1) % slides.length;
+        showSlide(next);
+    }
+
+    function prevSlide() {
+        let prev = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(prev);
+    }
+
+    function goToSlide(el) {
+        let index = parseInt(el.getAttribute("data-index"));
+        showSlide(index);
+    }
+
+    // Autoplay
+    setInterval(nextSlide, 5000);
+
+    // Init
+    showSlide(0);
+</script>
+
+</body>
+</html>
