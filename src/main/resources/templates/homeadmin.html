@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/layout :: head('Panel de Administrador')}"></th:block>
+</head>
+<body style="background: var(--bg-main);">
+    <div class="page-shell">
+        <div th:replace="~{fragments/layout :: header('inicio')}"></div>
+
+        <div style="display: flex; flex: 1; overflow: hidden;">
+            <aside th:replace="~{fragments/layout :: sidebar('dashboard')}"></aside>
+
+            <main style="flex: 1; padding: 30px; overflow-y: auto;">
+                <header style="margin-bottom: 2rem;">
+                    <h1 style="font-size: 1.75rem; font-weight: 800; color: var(--text-dark);">Panel de Administración 🛠️</h1>
+                    <p style="color: var(--text-secondary);">Resumen global de operaciones y gestión de usuarios.</p>
+                </header>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 2.5rem;">
+                    <article class="metric-card">
+                        <h3>Ventas del Mes</h3>
+                        <strong>S/ 45,200</strong>
+                        <p>Incremento del 12% vs mes anterior</p>
+                    </article>
+                    <article class="metric-card metric-info">
+                        <h3>Usuarios Activos</h3>
+                        <strong>124</strong>
+                        <p>7 nuevos registrados esta semana</p>
+                    </article>
+                    <article class="metric-card metric-danger">
+                        <h3>Tickets Abiertos</h3>
+                        <strong style="color: var(--danger);">5</strong>
+                        <p>Requieren atención inmediata</p>
+                    </article>
+                </div>
+
+                <section style="background: #fff; border-radius: 16px; box-shadow: var(--shadow-soft); padding: 30px; text-align: center;">
+                    <h2 style="margin-bottom: 1rem;">Módulos de Gestión</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Selecciona un área para gestionar los recursos del sistema.</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+                        <a th:href="@{/admin/usuarios}" class="button button-light">Gestión Usuarios</a>
+                        <a th:href="@{/admin/inventario}" class="button button-light">Inventario</a>
+                        <a th:href="@{/admin/pedidos}" class="button button-light">Pedidos Globales</a>
+                        <a th:href="@{/admin/reportes}" class="button button-primary">Ver Reportes</a>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <div th:replace="~{fragments/layout :: footer}"></div>
+    </div>
+</body>
+</html>

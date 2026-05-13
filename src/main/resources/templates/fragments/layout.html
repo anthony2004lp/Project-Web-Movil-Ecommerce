@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} + ' | All Process S.A.C.'">All Process S.A.C.</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    
+    <!-- Scripts base -->
+    <script th:src="@{/js/main.js}" defer></script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header th:fragment="header(seccionActiva)" class="topbar">
+        <a th:href="@{/}" class="brand" aria-label="All Process S.A.C.">
+            <img th:src="@{/img/allprocess_logo.png}" style="width:25px; height:25px" alt="Logo">
+            <span class="brand-text">ALL PROCESS S.A.C.</span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav class="main-nav" id="mainNav">
+            <a th:href="@{/}" th:classappend="${seccionActiva == 'inicio'} ? 'active' : ''">Inicio</a>
+            <a th:href="@{/catalogo}" th:classappend="${seccionActiva == 'catalogo'} ? 'active' : ''">Catálogo</a>
+            <a th:href="@{/nosotros}" th:classappend="${seccionActiva == 'nosotros'} ? 'active' : ''">Nosotros</a>
+            <a th:href="@{/contacto}" th:classappend="${seccionActiva == 'contacto'} ? 'active' : ''">Contacto</a>
+        </nav>
+
+        <div class="nav-actions">
+            <a th:href="@{/register}" class="button button-light">Registrarse</a>
+            <a th:href="@{/login}" class="button button-primary">Ingresar</a>
+        </div>
+    </header>
+
+    <!-- Sidebar for Dashboards -->
+    <aside th:fragment="sidebar(activeLink)" class="sidebar" id="sidebar">
+        <section class="sidebar-group">
+            <h2>PRINCIPAL</h2>
+            <a th:href="@{/home}" class="nav-link" th:classappend="${activeLink == 'dashboard'} ? 'active' : ''"><span>📊</span> Dashboard</a>
+            <a th:href="@{/pedidos}" class="nav-link" th:classappend="${activeLink == 'pedidos'} ? 'active' : ''"><span>📦</span> Pedidos</a>
+        </section>
+        <section class="sidebar-group">
+            <h2>CATALOGO</h2>
+            <a th:href="@{/productos}" class="nav-link" th:classappend="${activeLink == 'productos'} ? 'active' : ''"><span>📁</span> Productos</a>
+        </section>
+        <footer class="sidebar-footer" style="margin-top: auto; padding-top: 20px;">
+             <a th:href="@{/logout}" class="button logout-button" style="width: 100%; color: var(--danger);">Salir</a>
+        </footer>
+    </aside>
+
+    <!-- Footer -->
+    <footer th:fragment="footer" class="form-footer" style="padding: 20px; border-top: 1px solid var(--line-soft); margin-top: 40px;">
+        <p>&copy; <span th:text="${#dates.year(#dates.createNow())}">2026</span> All Process S.A.C. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
