@@ -1,0 +1,130 @@
+/* index.css - Landing Page Specific Styles */
+
+.hero-panel {
+    width: min(100%, 1280px);
+    margin: 0 auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 56px 36px 34px;
+}
+
+.hero-content {
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+    text-align: center;
+    padding: 12px 0 62px;
+}
+
+.hero-logo {
+    position: relative;
+    width: min(58vw, 320px);
+    aspect-ratio: 1 / 0.68;
+    margin-bottom: 20px;
+}
+
+.hero-core {
+    position: absolute;
+    inset: 12px 72px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #6566eb 0%, #5859e5 100%);
+    box-shadow: 0 0 20px rgba(101, 102, 235, 0.3);
+}
+
+.hero-orbit,
+.hero-band {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    border-radius: 999px;
+    background: #4f4f70; /* --logo-line */
+}
+
+.hero-orbit {
+    height: 4px;
+}
+
+.hero-band {
+    height: 16px;
+}
+
+.hero-band-strong {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hero-logo .orbit-top {
+    top: 34px;
+}
+
+.orbit-middle {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hero-logo .orbit-bottom {
+    bottom: 34px;
+}
+
+.hero-kicker {
+    margin: 14px 0 0;
+    font-size: clamp(1rem, 1.8vw, 1.9rem);
+    color: #8d8fa0;
+    letter-spacing: 0.02em;
+}
+
+.hero-copy {
+    max-width: 900px;
+    margin: 26px auto 0;
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    line-height: 1.45;
+    color: #8f91a6;
+}
+
+.stats-strip {
+    border-top: 1px solid rgba(112, 118, 161, 0.12);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    padding-top: 36px;
+}
+
+.stat-card strong {
+    display: block;
+    font-size: clamp(2rem, 3vw, 3rem);
+    line-height: 1;
+    color: #7343f6;
+}
+
+.stat-card span {
+    display: block;
+    margin-top: 6px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #9192a4;
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.hero-logo {
+    animation: float 6s ease-in-out infinite;
+}
+
+@media (max-width: 760px) {
+    .stats-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px 18px;
+    }
+}
+
+@media (max-width: 560px) {
+    .stats-strip {
+        grid-template-columns: 1fr;
+    }
+}

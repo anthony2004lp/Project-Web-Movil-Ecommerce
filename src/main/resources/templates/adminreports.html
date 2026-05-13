@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - All Process</title>
+    <link rel="stylesheet" th:href="@{/css/adminreports.css}">
+</head>
+
+<body>
+<header class="topbar">
+    <a class="brand" th:href="@{/admin/dashboard}">
+        <img th:src="@{/img/allprocess_logo.png}" alt="All Process">
+        <strong>ALL PROCESS S.A.C.</strong>
+    </a>
+
+    <div class="admin-profile">
+        <div class="profile-pill">
+            <img th:src="@{/img/avatar.png}" alt="Admin">
+            <strong>Admin</strong>
+            <span>Admin</span>
+        </div>
+        <a class="logout-btn" th:href="@{/logout}">Salir</a>
+    </div>
+</header>
+
+<main class="admin-page">
+    <section class="admin-shell">
+        <aside class="sidebar">
+            <nav>
+                <p>PRINCIPAL</p>
+                <a th:href="@{/admin/dashboard}">📊Dashboard</a>
+                <a th:href="@{/admin/pedidos}">📦Pedidos</a>
+
+                <p>CATÁLOGO</p>
+                <a th:href="@{/admin/productos}">📦Productos</a>
+
+                <p>USUARIO</p>
+                <a th:href="@{/admin/usuarios}">👥Usuarios</a>
+                <a th:href="@{/admin/clientes}">🛒Clientes</a>
+
+                <p>REPORTES</p>
+                <a class="active" th:href="@{/admin/reportes}">📈Reportes</a>
+            </nav>
+        </aside>
+
+        <section class="content">
+            <header class="content-header">
+                <h1>REPORTES</h1>
+                <p>Reportes del sistema — exportables en Excel y PDF</p>
+            </header>
+
+            <section class="report-card">
+                <div class="report-title">
+                    <h2>📦 REPORTES PEDIDOS</h2>
+                    <div>
+                        <button type="button" class="export-btn excel">▣ Excel</button>
+                        <button type="button" class="export-btn pdf">◆ PDF</button>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>N° ORDEN</th>
+                        <th>CLIENTE</th>
+                        <th>FECHA</th>
+                        <th>PRODUCTOS</th>
+                        <th>ESTADO</th>
+                        <th>TOTAL</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="#">ORD-2026-001</a></td>
+                        <td>Adrian Cliente</td>
+                        <td>13/04/2026</td>
+                        <td>Panel HMI 7", PLC S7-300</td>
+                        <td><span class="status">● Entregado</span></td>
+                        <td>S/ 2147.25</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">ORD-2026-001</a></td>
+                        <td>Adrian Cliente</td>
+                        <td>13/04/2026</td>
+                        <td>Panel HMI 7", PLC S7-300</td>
+                        <td><span class="status">● Entregado</span></td>
+                        <td>S/ 2147.25</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">ORD-2026-001</a></td>
+                        <td>Adrian Cliente</td>
+                        <td>13/04/2026</td>
+                        <td>Panel HMI 7", PLC S7-300</td>
+                        <td><span class="status">● Entregado</span></td>
+                        <td>S/ 2147.25</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="report-card">
+                <div class="report-title">
+                    <h2>🔴PRODUCTOS AGOTADOS</h2>
+                    <div>
+                        <button type="button" class="export-btn excel">▣ Excel</button>
+                        <button type="button" class="export-btn pdf">◆ PDF</button>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>PRODUCTOS</th>
+                        <th>SKU</th>
+                        <th>CATEGORIA</th>
+                        <th>PRECIO</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Módulo Remoto Analógico</td>
+                        <td>MOD-002</td>
+                        <td>MÓDULO REMOTO</td>
+                        <td>S/ 1100.00</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="report-card">
+                <div class="report-title">
+                    <h2>🗑️PRODUCTOS DESACTIVADOS</h2>
+                    <div>
+                        <button type="button" class="export-btn excel">▣ Excel</button>
+                        <button type="button" class="export-btn pdf">◆ PDF</button>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>PRODUCTOS</th>
+                        <th>SKU</th>
+                        <th>CATEGORIA</th>
+                        <th>PRECIO</th>
+                        <th>ACCION</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td colspan="5" class="empty">No hay productos desactivados</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+    </section>
+</main>
+
+<script th:src="@{/js/adminreports.js}"></script>
+</body>
+
+</html>

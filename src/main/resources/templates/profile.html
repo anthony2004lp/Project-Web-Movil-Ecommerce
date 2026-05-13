@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - All Process</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+
+<body>
+<header class="topbar">
+    <a class="brand" th:href="@{/}">
+        <img th:src="@{/img/allprocess_logo.png}" alt="All Process">
+        <strong>ALL PROCESS S.A.C.</strong>
+    </a>
+
+    <nav class="nav">
+        <a class="active" th:href="@{/}">Inicio</a>
+        <a th:href="@{/catalogo}">Catalogo</a>
+    </nav>
+
+    <div class="actions">
+        <a class="cart-button" th:href="@{/carrito}" aria-label="Carrito">
+            🛒
+            <span>3</span>
+        </a>
+
+        <div class="profile-pill">
+            <img th:src="@{/img/avatar.png}" alt="Adrian">
+            <strong>Adrian</strong>
+            <span>Cliente</span>
+        </div>
+    </div>
+</header>
+
+<main class="profile-page">
+    <aside class="profile-sidebar">
+        <section class="profile-card">
+            <img th:src="@{/img/avatar.png}" alt="Adrian Cliente">
+            <h1>Adrian Cliente</h1>
+            <p>anthony@gmail.com</p>
+            <span>Cliente activo</span>
+        </section>
+
+        <nav class="profile-menu">
+            <a class="active" th:href="@{/perfil}">👤 Datos personales</a>
+            <a th:href="@{/mis-pedidos}">📦 Mis pedidos</a>
+            <a th:href="@{/logout}">🚪 Cerrar sesión</a>
+        </nav>
+    </aside>
+
+    <section class="profile-content">
+        <section class="panel">
+            <h2>Datos Personales</h2>
+
+            <form class="personal-form">
+                <label>
+                    <span>NOMBRE</span>
+                    <input type="text" value="Adrián">
+                </label>
+
+                <label>
+                    <span>APELLIDO</span>
+                    <input type="text" value="Cliente">
+                </label>
+
+                <label>
+                    <span>CORREO ELECTRONICO</span>
+                    <input type="email" value="Adrián@gmail.com">
+                </label>
+
+                <label>
+                    <span>TELEFONO</span>
+                    <input type="text" value="+51 987 654 321">
+                </label>
+
+                <label>
+                    <span>DNI</span>
+                    <input type="text" value="45678901">
+                </label>
+
+                <label>
+                    <span>ROL</span>
+                    <input class="role-input" type="text" value="Cliente" readonly>
+                </label>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Mis Direcciones</h2>
+
+            <div class="address-grid">
+                <article class="address-card primary">
+                    <span class="tag green">Principal</span>
+                    <h3>Casa</h3>
+                    <p>Av. Industrial 456, Of. 3B</p>
+                    <p>Puente Piedra, Lima</p>
+                    <button type="button">Editar</button>
+                </article>
+
+                <article class="address-card">
+                    <span class="tag purple">Oficina</span>
+                    <h3>Trabajo</h3>
+                    <p>Jr. Comercio 123, Piso 4</p>
+                    <p>Cercado de Lima</p>
+                    <button type="button">Editar</button>
+                    <button type="button" class="delete">Eliminar</button>
+                </article>
+
+                <button type="button" class="add-address" id="addAddressBtn">
+                    <span>+</span>
+                    Agregar dirección
+                </button>
+            </div>
+        </section>
+    </section>
+</main>
+
+<script th:src="@{/js/profile.js}"></script>
+</body>
+
+</html>

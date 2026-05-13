@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos - All Process</title>
+    <link rel="stylesheet" th:href="@{/css/ordermanagement.css}">
+</head>
+
+<body>
+<header class="topbar">
+    <a class="brand" th:href="@{/admin/dashboard}">
+        <img th:src="@{/img/allprocess_logo.png}" alt="All Process">
+        <strong>ALL PROCESS S.A.C.</strong>
+    </a>
+
+    <div class="admin-profile">
+        <div class="profile-pill">
+            <img th:src="@{/img/avatar.png}" alt="Admin">
+            <strong>Admin</strong>
+            <span>Admin</span>
+        </div>
+        <a class="logout-btn" th:href="@{/logout}">Salir</a>
+    </div>
+</header>
+
+<main class="admin-page">
+    <section class="admin-shell">
+        <aside class="sidebar">
+            <nav>
+                <p>PRINCIPAL</p>
+                <a th:href="@{/admin/dashboard}">📊Dashboard</a>
+                <a class="active" th:href="@{/admin/pedidos}">📦Pedidos</a>
+
+                <p>CATÁLOGO</p>
+                <a th:href="@{/admin/productos}">📦Productos</a>
+
+                <p>USUARIO</p>
+                <a th:href="@{/admin/usuarios}">👥Usuarios</a>
+                <a th:href="@{/admin/clientes}">🛒Clientes</a>
+
+                <p>REPORTES</p>
+                <a th:href="@{/admin/reportes}">📈Reportes</a>
+            </nav>
+        </aside>
+
+        <section class="content">
+            <header class="content-header">
+                <h1>PEDIDOS</h1>
+                <p>Gestión y cambio de estados</p>
+            </header>
+
+            <section class="orders-card">
+                <div class="orders-title">📦 REPORTES PEDIDOS</div>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>N° ORDEN</th>
+                        <th>CLIENTE</th>
+                        <th>FECHA</th>
+                        <th>PRODUCTOS</th>
+                        <th>ESTADO</th>
+                        <th>TOTAL</th>
+                        <th>ACCION</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="#">ORD-2026-001</a></td>
+                        <td>Adrian Cliente</td>
+                        <td>13/04/2026</td>
+                        <td>Panel HMI 7", PLC S7-300</td>
+                        <td><span class="status">● Entregado</span></td>
+                        <td>S/ 2147.25</td>
+                        <td><button type="button" class="complete-btn">✓ Completo</button></td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="#">ORD-2026-001</a></td>
+                        <td>Adrian Cliente</td>
+                        <td>13/04/2026</td>
+                        <td>Panel HMI 7", PLC S7-300</td>
+                        <td><span class="status">● Entregado</span></td>
+                        <td>S/ 2147.25</td>
+                        <td><button type="button" class="complete-btn">✓ Completo</button></td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="#">ORD-2026-001</a></td>
+                        <td>Adrian Cliente</td>
+                        <td>13/04/2026</td>
+                        <td>Panel HMI 7", PLC S7-300</td>
+                        <td><span class="status">● Entregado</span></td>
+                        <td>S/ 2147.25</td>
+                        <td><button type="button" class="complete-btn">✓ Completo</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+    </section>
+</main>
+
+<script th:src="@{/js/ordermanagement.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - All Process</title>
+    <link rel="stylesheet" th:href="@{/css/productmanagement.css}">
+</head>
+
+<body>
+<header class="topbar">
+    <a class="brand" th:href="@{/admin/dashboard}">
+        <img th:src="@{/img/allprocess_logo.png}" alt="All Process">
+        <strong>ALL PROCESS S.A.C.</strong>
+    </a>
+
+    <div class="admin-profile">
+        <div class="profile-pill">
+            <img th:src="@{/img/avatar.png}" alt="Admin">
+            <strong>Admin</strong>
+            <span>Admin</span>
+        </div>
+        <a class="logout-btn" th:href="@{/logout}">Salir</a>
+    </div>
+</header>
+
+<main class="admin-page">
+    <section class="admin-shell">
+        <aside class="sidebar">
+            <nav>
+                <p>PRINCIPAL</p>
+                <a th:href="@{/admin/dashboard}">📊Dashboard</a>
+                <a th:href="@{/admin/pedidos}">📦Pedidos</a>
+
+                <p>CATÁLOGO</p>
+                <a class="active" th:href="@{/admin/productos}">📦Productos</a>
+
+                <p>USUARIO</p>
+                <a th:href="@{/admin/usuarios}">👥Usuarios</a>
+                <a th:href="@{/admin/clientes}">🛒Clientes</a>
+
+                <p>REPORTES</p>
+                <a th:href="@{/admin/reportes}">📈Reportes</a>
+            </nav>
+        </aside>
+
+        <section class="content">
+            <header class="content-header">
+                <div>
+                    <h1>PRODUCTOS</h1>
+                    <p>Gestión el catálogo - PANEL HMI . PLC . MÓDULO REMOTO</p>
+                </div>
+
+                <button type="button" class="new-product-btn" id="newProductBtn">+ Nuevo producto</button>
+            </header>
+
+            <section class="toolbar">
+                <input id="searchInput" type="search" placeholder="🔍 Buscar producto.....">
+
+                <select id="statusFilter">
+                    <option value="todos">Todos los estados</option>
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                </select>
+            </section>
+
+            <section class="product-grid" id="productGrid">
+                <article class="admin-product-card" data-name="Panel HMI 7 Touchscreen" data-status="inactivo">
+                    <span class="status-badge inactive">Inactivo</span>
+                    <div class="product-image">🖥️</div>
+                    <h2>Panel HMI 7” Touchscreen</h2>
+                    <p>HMI-001 · PANEL HMI · Stock: 5 · S/ 1290.00</p>
+                    <div class="card-actions">
+                        <button type="button" class="edit-btn">✎ Editar</button>
+                        <button type="button" class="activate-btn">Activar</button>
+                    </div>
+                </article>
+
+                <article class="admin-product-card" data-name="Panel HMI 7 Touchscreen" data-status="activo">
+                    <span class="status-badge active">Activo</span>
+                    <div class="product-image">🖥️</div>
+                    <h2>Panel HMI 7” Touchscreen</h2>
+                    <p>HMI-001 · PANEL HMI · Stock: 5 · S/ 1290.00</p>
+                    <div class="card-actions">
+                        <button type="button" class="edit-btn">✎ Editar</button>
+                        <button type="button" class="deactivate-btn">Desactivar</button>
+                    </div>
+                </article>
+
+                <article class="admin-product-card" data-name="Panel HMI 7 Touchscreen" data-status="activo">
+                    <span class="status-badge active">Activo</span>
+                    <div class="product-image">🖥️</div>
+                    <h2>Panel HMI 7” Touchscreen</h2>
+                    <p>HMI-001 · PANEL HMI · Stock: 5 · S/ 1290.00</p>
+                    <div class="card-actions">
+                        <button type="button" class="edit-btn">✎ Editar</button>
+                        <button type="button" class="deactivate-btn">Desactivar</button>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </section>
+</main>
+
+<script th:src="@{/js/productmanagement.js}"></script>
+</body>
+
+</html>

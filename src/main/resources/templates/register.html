@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/layout :: head('Crear cuenta')}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+    <div class="page-shell">
+<!--        <div th:replace="~{fragments/layout :: header('inicio')}"></div>-->
+<a th:href="@{/}">volver</a>
+        <main style="flex: 1; display: grid; place-items: center; padding: 40px 20px;">
+            <section class="register-card" style="width: 100%; max-width: 560px; background: #fff; padding: 40px; border-radius: var(--radius-card); box-shadow: var(--shadow-soft);">
+                <header class="brand-block" style="text-align: center; margin-bottom: 2rem;">
+                    <img class="brand-mark" th:src="@{/img/allprocess_logo.png}" style="width: 60px; height: 60px; margin-bottom: 1rem;" alt="Logo">
+                    <h1 style="font-size: 1.5rem; font-weight: 800;">Crea tu cuenta</h1>
+                    <p style="color: var(--text-secondary);">Únete a la plataforma All Process</p>
+                </header>
+
+                <form class="register-form" id="registerForm" novalidate>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <label class="field">
+                            <span>Nombre</span>
+                            <input type="text" name="nombre" placeholder="Nombre" required>
+                        </label>
+                        <label class="field">
+                            <span>Apellido</span>
+                            <input type="text" name="apellido" placeholder="Apellido" required>
+                        </label>
+                    </div>
+
+                    <label class="field">
+                        <span>Correo electrónico</span>
+                        <input type="email" name="correo" placeholder="correo@ejemplo.com" required>
+                    </label>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <label class="field">
+                            <span>Teléfono</span>
+                            <input type="tel" name="telefono" placeholder="+51 ..." required>
+                        </label>
+                        <label class="field">
+                            <span>DNI</span>
+                            <input type="text" name="dni" placeholder="DNI" required>
+                        </label>
+                    </div>
+
+                    <label class="field">
+                        <span>Dirección de envío</span>
+                        <input type="text" name="direccion" placeholder="Dirección completa" required>
+                    </label>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <label class="field">
+                            <span>Contraseña</span>
+                            <input type="password" name="password" placeholder="••••••••" required minlength="6">
+                        </label>
+                        <label class="field">
+                            <span>Confirmar</span>
+                            <input type="password" name="confirmPassword" placeholder="••••••••" required minlength="6">
+                        </label>
+                    </div>
+
+                    <p class="form-message" id="formMessage" aria-live="polite" style="text-align: center; margin-bottom: 1rem; color: var(--danger); font-size: 0.85rem;"></p>
+
+                    <button type="submit" class="button button-primary" style="width: 100%;">Crear cuenta</button>
+
+                    <footer class="form-footer" style="margin-top: 2rem; border-top: 1px solid var(--line-soft); padding-top: 1.5rem;">
+                        ¿Ya tienes cuenta?
+                        <a th:href="@{/login}" style="color: var(--primary); font-weight: 700;">Inicia sesión</a>
+                    </footer>
+                </form>
+            </section>
+        </main>
+
+<!--        <div th:replace="~{fragments/layout :: footer}"></div>-->
+    </div>
+</body>
+</html>
