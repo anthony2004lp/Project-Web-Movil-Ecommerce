@@ -2,38 +2,14 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogo - All Process</title>
+    <th:block th:replace="~{fragments/layout :: head('Catalogo')}"></th:block>
     <link rel="stylesheet" th:href="@{/css/catalog.css}">
 </head>
 
+
 <body>
 <div class="catalog-page">
-    <header class="topbar">
-        <a class="brand" th:href="@{/}">
-            <img th:src="@{/img/allprocess_logo.png}" alt="All Process">
-            <strong>ALL PROCESS S.A.C.</strong>
-        </a>
-
-        <nav class="nav">
-            <a class="active" th:href="@{/}">Inicio</a>
-            <a th:href="@{/catalogo}">Catalogo</a>
-        </nav>
-
-        <div class="actions">
-            <button class="cart-button" type="button" aria-label="Carrito">
-                🛒
-                <span id="cartCount">0</span>
-            </button>
-
-            <div class="profile">
-                <img th:src="@{/img/avatar.png}" alt="Adrian">
-                <strong>Adrian</strong>
-                <span>Cliente</span>
-            </div>
-        </div>
-    </header>
+    <div th:replace="~{fragments/navbar-client :: navbar}"></div>
 
     <main class="catalog-shell">
         <section class="search-wrap">

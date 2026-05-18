@@ -18,6 +18,19 @@
     padding: 12px 0 62px;
 }
 
+.hero-title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.hero-actions {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
 .hero-logo {
     position: relative;
     width: min(58vw, 320px);

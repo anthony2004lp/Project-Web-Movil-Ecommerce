@@ -9,8 +9,7 @@
 <body>
     <div class="page-shell">
         <!-- Header minimal or common -->
-        <!--        <div th:replace="~{fragments/layout :: header('inicio')}"></div>-->
-        <a th:href="@{/}">volver</a>
+        <div th:replace="~{fragments/navbar-visitor :: navbar}"></div>
 
         <main style="flex: 1; display: grid; place-items: center; padding: 40px 20px;">
             <section class="register-card"

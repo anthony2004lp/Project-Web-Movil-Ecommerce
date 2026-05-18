@@ -8,46 +8,44 @@
 <body>
     <div class="page-shell">
         <!-- Header fragment -->
-        <div th:replace="~{fragments/layout :: header('inicio')}"></div>
+        <div th:replace="~{fragments/navbar-visitor :: navbar}"></div>
 
-        <main class="hero-panel" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+        <main class="hero-panel">
             <section class="hero-content">
-                <div class="hero-logo" aria-hidden="true" style="margin-bottom: 2rem;">
-                    <img th:src="@{/img/allprocess_logo.png}">
+                <div class="hero-logo" aria-hidden="true">
+                    <img th:src="@{/img/allprocess_logo.png}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 
-                <h1 style="font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; color: var(--text-dark);">ALL PROCESS S.A.C.</h1>
-                <p class="hero-kicker" style="font-size: 1.25rem; color: var(--text-muted); margin: 1rem 0;">PLATAFORMA E-COMMERCE &amp; GESTIÓN INTERNA</p>
-                <p class="hero-copy" style="max-width: 800px; margin: 0 auto; line-height: 1.6; color: var(--text-secondary);">
+                <h1 class="hero-title">ALL PROCESS S.A.C.</h1>
+                <p class="hero-kicker">PLATAFORMA E-COMMERCE &amp; GESTIÓN INTERNA</p>
+                <p class="hero-copy">
                     Especialistas en automatización industrial. Encuentra herramientas, maquinaria y equipos de alta tecnología con soporte garantizado.
                 </p>
                 
-                <div style="margin-top: 2.5rem; display: flex; gap: 1rem; justify-content: center;">
-                    <a th:href="@{/catalogo}" class="button button-primary">Explorar Catálogo</a>
-                    <a th:href="@{/nosotros}" class="button button-light">Saber más</a>
+                <div class="hero-actions">
+                    <a th:href="@{/catalogclient}" class="button button-primary">Explorar Catálogo</a>
+                    <a th:href="@{/under_construction}" class="button button-light">Saber más</a>
                 </div>
             </section>
         </main>
 
-        <section class="center-strip" style="padding: 40px 20px; border-top: 1px solid var(--line-soft);">
-            <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        <section class="stats-strip" style="max-width: 1200px; margin: 0 auto; padding-bottom: 40px;">
                 <article class="stat-card" style="text-align: center;">
-                    <strong style="display: block; font-size: 2.5rem; color: var(--primary);">500+</strong>
-                    <span style="font-weight: 600; color: var(--text-secondary);">Productos</span>
+                    <strong>500+</strong>
+                    <span>Productos</span>
                 </article>
                 <article class="stat-card" style="text-align: center;">
-                    <strong style="display: block; font-size: 2.5rem; color: var(--primary);">99.9%</strong>
-                    <span style="font-weight: 600; color: var(--text-secondary);">Disponibilidad</span>
+                    <strong>99.9%</strong>
+                    <span>Disponibilidad</span>
                 </article>
                 <article class="stat-card" style="text-align: center;">
-                    <strong style="display: block; font-size: 2.5rem; color: var(--primary);">24h+</strong>
-                    <span style="font-weight: 600; color: var(--text-secondary);">Entrega Lima</span>
+                    <strong>24h+</strong>
+                    <span>Entrega Lima</span>
                 </article>
                 <article class="stat-card" style="text-align: center;">
-                    <strong style="display: block; font-size: 2.5rem; color: var(--primary);">100%</strong>
-                    <span style="font-weight: 600; color: var(--text-secondary);">Seguro</span>
+                    <strong>100%</strong>
+                    <span>Seguro</span>
                 </article>
-            </div>
         </section>
 
         <!-- Footer fragment -->

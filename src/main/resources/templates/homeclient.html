@@ -5,10 +5,9 @@
 </head>
 <body style="background: var(--bg-main);">
     <div class="page-shell">
-        <div th:replace="~{fragments/layout :: header('inicio')}"></div>
+        <div th:replace="~{fragments/navbar-client :: navbar}"></div>
 
         <div style="display: flex; flex: 1; overflow: hidden;">
-            <aside th:replace="~{fragments/layout :: sidebar('dashboard')}"></aside>
 
             <main style="flex: 1; padding: 30px; overflow-y: auto;">
                 <header style="margin-bottom: 2rem;">

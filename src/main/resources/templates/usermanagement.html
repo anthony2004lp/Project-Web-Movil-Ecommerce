@@ -2,49 +2,14 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clientes - All Process</title>
+    <th:block th:replace="~{fragments/layout :: head('Control de Clientes')}"></th:block>
     <link rel="stylesheet" th:href="@{/css/usermanagement.css}">
 </head>
 
 <body>
-<header class="topbar">
-    <a class="brand" th:href="@{/admin/dashboard}">
-        <img th:src="@{/img/allprocess_logo.png}" alt="All Process">
-        <strong>ALL PROCESS S.A.C.</strong>
-    </a>
+<div th:replace="~{fragments/navbar-admin :: navbar}"></div>
 
-    <div class="admin-profile">
-        <div class="profile-pill">
-            <img th:src="@{/img/avatar.png}" alt="Admin">
-            <strong>Admin</strong>
-            <span>Admin</span>
-        </div>
-        <a class="logout-btn" th:href="@{/logout}">Salir</a>
-    </div>
-</header>
-
-<main class="admin-page">
-    <section class="admin-shell">
-        <aside class="sidebar">
-            <nav>
-                <p>PRINCIPAL</p>
-                <a th:href="@{/admin/dashboard}">📊Dashboard</a>
-                <a th:href="@{/admin/pedidos}">📦Pedidos</a>
-
-                <p>CATÁLOGO</p>
-                <a th:href="@{/admin/productos}">📦Productos</a>
-
-                <p>USUARIO</p>
-                <a th:href="@{/admin/usuarios}">👥Usuarios</a>
-                <a class="active" th:href="@{/admin/clientes}">🛒Clientes</a>
-
-                <p>REPORTES</p>
-                <a th:href="@{/admin/reportes}">📈Reportes</a>
-            </nav>
-        </aside>
-
+<main class="page-shell">
         <section class="content">
             <header class="content-header">
                 <div>
@@ -79,7 +44,6 @@
                 </table>
             </section>
         </section>
-    </section>
 </main>
 
 <script th:src="@{/js/usermanagement.js}"></script>
