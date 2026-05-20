@@ -6,50 +6,50 @@
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
-    <div class="page-shell">
-        <!-- Header fragment -->
-        <div th:replace="~{fragments/navbar-visitor :: navbar}"></div>
+<div class="page-shell">
+    <!-- Header fragment -->
+    <div th:replace="~{fragments/navbar-visitor :: navbar}"></div>
 
-        <main class="hero-panel">
-            <section class="hero-content">
-                <div class="hero-logo" aria-hidden="true">
-                    <img th:src="@{/img/allprocess_logo.png}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                
-                <h1 class="hero-title">ALL PROCESS S.A.C.</h1>
-                <p class="hero-kicker">PLATAFORMA E-COMMERCE &amp; GESTIÓN INTERNA</p>
-                <p class="hero-copy">
-                    Especialistas en automatización industrial. Encuentra herramientas, maquinaria y equipos de alta tecnología con soporte garantizado.
-                </p>
-                
-                <div class="hero-actions">
-                    <a th:href="@{/catalogclient}" class="button button-primary">Explorar Catálogo</a>
-                    <a th:href="@{/under_construction}" class="button button-light">Saber más</a>
-                </div>
-            </section>
-        </main>
+    <main class="hero-panel">
+        <section class="hero-content">
+            <div class="hero-logo" aria-hidden="true">
+                <img th:src="@{/img/allprocess_logo.png}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
 
-        <section class="stats-strip" style="max-width: 1200px; margin: 0 auto; padding-bottom: 40px;">
-                <article class="stat-card" style="text-align: center;">
-                    <strong>500+</strong>
-                    <span>Productos</span>
-                </article>
-                <article class="stat-card" style="text-align: center;">
-                    <strong>99.9%</strong>
-                    <span>Disponibilidad</span>
-                </article>
-                <article class="stat-card" style="text-align: center;">
-                    <strong>24h+</strong>
-                    <span>Entrega Lima</span>
-                </article>
-                <article class="stat-card" style="text-align: center;">
-                    <strong>100%</strong>
-                    <span>Seguro</span>
-                </article>
+            <h1 class="hero-title">ALL PROCESS S.A.C.</h1>
+            <p class="hero-kicker">PLATAFORMA E-COMMERCE &amp; GESTIÓN INTERNA</p>
+            <p class="hero-copy">
+                Especialistas en automatización industrial. Encuentra herramientas, maquinaria y equipos de alta tecnología con soporte garantizado.
+            </p>
+
+            <div class="hero-actions">
+                <a th:href="@{/catalogclient}" class="button button-primary">Explorar Catálogo</a>
+                <a th:href="@{/under_construction}" class="button button-light">Saber más</a>
+            </div>
         </section>
+    </main>
 
-        <!-- Footer fragment -->
-<!--        <div th:replace="~{fragments/layout :: footer}"></div>-->
-    </div>
+    <section class="stats-strip" style="max-width: 1200px; margin: 0 auto; padding-bottom: 40px;">
+        <article class="stat-card" style="text-align: center;">
+            <strong>500+</strong>
+            <span>Productos</span>
+        </article>
+        <article class="stat-card" style="text-align: center;">
+            <strong>99.9%</strong>
+            <span>Disponibilidad</span>
+        </article>
+        <article class="stat-card" style="text-align: center;">
+            <strong>24h+</strong>
+            <span>Entrega Lima</span>
+        </article>
+        <article class="stat-card" style="text-align: center;">
+            <strong>100%</strong>
+            <span>Seguro</span>
+        </article>
+    </section>
+
+    <!-- Footer fragment -->
+    <!--        <div th:replace="~{fragments/layout :: footer}"></div>-->
+</div>
 </body>
 </html>

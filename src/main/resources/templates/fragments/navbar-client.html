@@ -14,7 +14,7 @@
         <nav class="main-nav" id="mainNav">
             <a th:href="@{/homeclient}">Inicio</a>
             <a th:href="@{/catalogclient}">Catálogo</a>
-            <a th:href="@{/carclient}">Carrito</a>
+            <!--<a th:href="@{/carclient}">Carrito</a>-->
             <a th:href="@{/myorders}">Mis Pedidos</a>
         </nav>
 
@@ -23,7 +23,7 @@
                 🛒
             </a>
             <a th:href="@{/profile}" class="profile-pill" style="display:flex; align-items:center; gap:8px; background:var(--bg-main); padding:4px 12px; border-radius:20px;">
-                <img th:src="@{/img/avatar.png}" alt="Client Avatar" style="width:24px; height:24px; border-radius:50%;" loading="lazy">
+                <img th:src="@{/img/user.png}" alt="Client Avatar" style="width:24px; height:24px; border-radius:50%;" loading="lazy">
                 <strong>Cliente</strong>
             </a>
             <a class="button button-light" th:href="@{/login}">Salir</a>

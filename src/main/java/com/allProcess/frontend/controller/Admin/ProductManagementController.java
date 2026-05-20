@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ProductManagementController {
-    @GetMapping("productmanagement")
+    @GetMapping("/productmanagement")
     public String productmanagement(){return "productmanagement";}
 }

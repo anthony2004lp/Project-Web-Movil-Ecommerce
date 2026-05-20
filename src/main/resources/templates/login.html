@@ -4,91 +4,120 @@
 <head>
     <th:block th:replace="~{fragments/layout :: head('Ingresar')}"></th:block>
     <link rel="stylesheet" th:href="@{/css/login.css}">
+    <style>
+        /* Estilos para los tabs de rol */
+        .role-tabs label {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0;
+        }
+
+        .role-tabs label span {
+            transition: all 0.3s ease;
+            display: grid;
+            place-items: center;
+            height: 34px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .role-tabs input[type="radio"] {
+            display: none;
+        }
+
+        .form-message.error {
+            color: #dc3545;
+        }
+
+        .form-message.success {
+            color: #28a745;
+        }
+
+        input.invalid {
+            border-color: #dc3545 !important;
+            background-color: #fff8f8 !important;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="page-shell">
-        <!-- Header minimal or common -->
-        <div th:replace="~{fragments/navbar-visitor :: navbar}"></div>
+<div class="page-shell">
+    <main style="flex: 1; display: grid; place-items: center; padding: 40px 20px;">
+        <section class="register-card"
+                 style="width: 100%; max-width: 640px; background: #fff; padding: 40px; border-radius: var(--radius-card); box-shadow: var(--shadow-soft);">
+            <header class="brand-block" style="text-align: center; margin-bottom: 2rem;">
+                <img class="brand-mark" th:src="@{/img/allprocess_logo.png}"
+                     style="width: 120px; height: 120px; margin-bottom: 1rem;" alt="Logo">
+                <h1 style="font-size: 1.5rem; font-weight: 800;">Bienvenido de nuevo</h1>
+                <p style="color: var(--text-secondary);">Ingresa a tu cuenta All Process</p>
+            </header>
 
-        <main style="flex: 1; display: grid; place-items: center; padding: 40px 20px;">
-            <section class="register-card"
-                style="width: 100%; max-width: 640px; background: #fff; padding: 40px; border-radius: var(--radius-card); box-shadow: var(--shadow-soft);">
-                <header class="brand-block" style="text-align: center; margin-bottom: 2rem;">
-                    <img class="brand-mark" th:src="@{/img/allprocess_logo.png}"
-                        style="width: 120px; height: 120px; margin-bottom: 1rem;" alt="Logo">
-                    <h1 style="font-size: 1.5rem; font-weight: 800;">Bienvenido de nuevo</h1>
-                    <p style="color: var(--text-secondary);">Ingresa a tu cuenta All Process</p>
-                </header>
+            <form id="loginForm" novalidate>
+                <!-- Selector de rol -->
+                <div class="role-tabs"
+                     style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 7px; margin-bottom: 1.5rem; background: #f0f1f5; border-radius: 8px;">
 
-                <form class="register-form" id="loginForm" novalidate>
-                    <div class="role-tabs"
-                         style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 7px; margin-bottom: 1.5rem; background: #f0f1f5; border-radius: 8px;">
-
-                        <label style="margin: 0;">
-                            <input type="radio" name="rol" value="CLIENTE" checked hidden>
-                            <span style="display: grid; place-items: center; height: 34px; border-radius: 6px; background: linear-gradient(135deg, #2368f5, #7b2df0); color: #fff; font-size: 0.8rem; font-weight: 800; cursor: pointer;">
-                Cliente
-            </span>
-                        </label>
-
-                        <label style="margin: 0;">
-                            <input type="radio" name="rol" value="TRABAJADOR" hidden>
-                            <span style="display: grid; place-items: center; height: 34px; border-radius: 6px; color: #737789; font-size: 0.8rem; font-weight: 800; cursor: pointer;">
-                Trabajador
-            </span>
-                        </label>
-
-                        <label style="margin: 0;">
-                            <input type="radio" name="rol" value="ADMIN" hidden>
-                            <span style="display: grid; place-items: center; height: 34px; border-radius: 6px; color: #737789; font-size: 0.8rem; font-weight: 800; cursor: pointer;">
-                Admin
-            </span>
-                        </label>
-                    </div>
-
-                    <label class="field">
-                        <span>Correo electrónico</span>
-                        <input type="email" name="correo" placeholder="allprocess.com" required>
+                    <label class="rol-option active">
+                        <input type="radio" name="rol" value="CLIENTE" checked>
+                        <span>Cliente</span>
                     </label>
 
-                    <label class="field">
-                        <span>Contraseña</span>
-                        <input type="password" name="password" placeholder="••••••••" required minlength="6">
+                    <label class="rol-option">
+                        <input type="radio" name="rol" value="VENDEDOR">
+                        <span>Trabajador</span>
                     </label>
 
-                    <p class="form-message" id="formMessage" aria-live="polite"
-                       style="text-align: center; min-height: 1.2rem; margin-bottom: 1rem; color: var(--danger); font-size: 0.85rem;">
-                    </p>
+                    <label class="rol-option">
+                        <input type="radio" name="rol" value="ADMINISTRADOR">
+                        <span>Admin</span>
+                    </label>
+                </div>
 
-                    <button type="submit" class="button button-primary"
-                            style="width: 100%; border-radius: 10px; background: linear-gradient(135deg, #2368f5, #842ff0); box-shadow: 0 12px 22px rgba(93, 64, 239, 0.35);">
-                        Iniciar sesion
-                    </button>
+                <label class="field">
+                    <span>Correo electrónico</span>
+                    <input type="email" name="correo" placeholder="allprocess.com" required>
+                </label>
 
-                    <div style="margin-top: 1.5rem;">
-                        <a th:href="@{/forgot-password}"
-                           style="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; border: 1px solid #8de4ac; border-radius: 9px; background: #c7f6d8; color: #2ea850; text-decoration: none; font-weight: 800;">
-                            <span style="display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #35c85a; color: #fff; font-size: 1.2rem;">☎</span>
-                            <span style="line-height: 1.1;">
-                ¿Olvidaste tu contraseña?<br>
-                <small style="font-weight: 700;">Contáctanos por WhatsApp</small>
-            </span>
-                        </a>
-                    </div>
+                <label class="field">
+                    <span>Contraseña</span>
+                    <input type="password" name="password" placeholder="••••••••" required minlength="6">
+                </label>
 
-                    <footer class="form-footer"
-                            style="margin-top: 2rem; text-align: center; font-size: 0.75rem;">
-                        ¿Sin cuenta?
-                        <a th:href="@{/register}" style="color: var(--primary); font-weight: 700;">Regístrate aquí</a>
-                    </footer>
-                </form>
+                <p class="form-message" id="formMessage" aria-live="polite"
+                   style="text-align: center; min-height: 1.2rem; margin-bottom: 1rem;">
+                </p>
 
-            </section>
-        </main>
+                <button type="submit" class="button button-primary"
+                        style="width: 100%; border-radius: 10px; background: linear-gradient(135deg, #2368f5, #842ff0); box-shadow: 0 12px 22px rgba(93, 64, 239, 0.35);">
+                    Iniciar sesión
+                </button>
 
-        <!--        <div th:replace="~{fragments/layout :: footer}"></div>-->
-    </div>
+                <div style="margin-top: 1.5rem;">
+                    <a th:href="@{/forgot-password}"
+                       style="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; border: 1px solid #8de4ac; border-radius: 9px; background: #c7f6d8; color: #2ea850; text-decoration: none; font-weight: 800;">
+                        <span style="display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #35c85a; color: #fff; font-size: 1.2rem;">☎</span>
+                        <span style="line-height: 1.1;">
+                                ¿Olvidaste tu contraseña?<br>
+                                <small style="font-weight: 700;">Contáctanos por WhatsApp</small>
+                            </span>
+                    </a>
+                </div>
+
+                <footer class="form-footer"
+                        style="margin-top: 2rem; text-align: center; font-size: 0.75rem;">
+                    ¿Sin cuenta?
+                    <a th:href="@{/register}" style="color: var(--primary); font-weight: 700;">Regístrate aquí</a>
+                </footer>
+            </form>
+
+        </section>
+    </main>
+</div>
+
+<!-- Scripts separados -->
+<script th:src="@{/js/login.js}"></script>
 </body>
 
 </html>

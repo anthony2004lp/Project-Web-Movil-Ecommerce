@@ -12,16 +12,16 @@
         </button>
 
         <nav class="main-nav" id="mainNav">
-            <a th:href="@{/homeadmin}">Dashboard</a>
+            <!--<a th:href="@{/homeadmin}">Dashboard</a>
             <a th:href="@{/ordermanagement}">Pedidos</a>
             <a th:href="@{/customermanagement}">Usuarios</a>
             <a th:href="@{/usermanagement}">Clientes</a>
-            <a th:href="@{/adminreports}">Reportes</a>
+            <a th:href="@{/adminreports}">Reportes</a>-->
         </nav>
 
         <div class="admin-profile" style="display: flex; gap: 15px; align-items: center;">
             <a th:href="@{/profile}" class="profile-pill" style="display:flex; align-items:center; gap:8px; background:var(--bg-main); padding:4px 12px; border-radius:20px;">
-                <img th:src="@{/img/avatar.png}" alt="Admin Avatar" style="width:24px; height:24px; border-radius:50%;" loading="lazy">
+                <img th:src="@{/img/user.png}" alt="Admin Avatar" style="width:24px; height:24px; border-radius:50%;" loading="lazy">
                 <strong>Administrador</strong>
             </a>
             <a class="button button-light" th:href="@{/login}">Salir</a>
