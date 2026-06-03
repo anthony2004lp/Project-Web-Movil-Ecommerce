@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Metals (Scala/Java tooling)
+.metals/
+
+### Bloop (build server cache)
+.bloop/
