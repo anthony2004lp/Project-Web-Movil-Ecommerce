@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <header th:fragment="navbar" class="topbar">
+        <a th:href="@{/}" class="brand" aria-label="Inicio">
+            <img th:src="@{/img/imagen_logo_navbar.svg}" style="width:100px; height:100px; object-fit: contain;" 
+     alt="Logo" loading="lazy">
+            <span class="brand-text">ALL PROCESS S.A.C.</span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggleVisitor" type="button" aria-expanded="false" aria-controls="mainNavVisitor">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav class="main-nav" id="mainNavVisitor">
+            <a th:href="@{/}">Inicio</a>
+            <a th:href="@{/catalogo}">Catálogo</a>
+            <a th:href="@{/nosotros}">Nosotros</a>
+            <a th:href="@{/contacto}">Contacto</a>
+        </nav>
+
+        <div class="nav-actions" style="display: flex; gap: 10px;">
+            <a th:href="@{/register}" class="button button-light">Registrarse</a>
+            <a th:href="@{/login}" class="button button-primary">Ingresar</a>
+        </div>
+    </header>
+</body>
+</html>
