@@ -54,6 +54,17 @@
     color: var(--success);
 }
 
+.field-error {
+    color: var(--danger);
+    font-size: 0.75rem;
+    min-height: 1rem;
+    display: block;
+}
+
+.password-strength + .strength-label {
+    margin-top: 2px;
+}
+
 @media (max-width: 560px) {
     .register-card {
         padding: 24px 16px 18px;

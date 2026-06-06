@@ -3,7 +3,9 @@ document.querySelectorAll(".export-btn").forEach((button) => {
         const type = button.classList.contains("excel") ? "Excel" : "PDF";
         const card = button.closest(".report-card");
         const title = card.querySelector("h2").textContent.trim();
-
-        alert(`Exportando ${title} en ${type}`);
+        showToast(`Exportando ${title} en formato ${type}...`, 'info');
+        setTimeout(() => {
+            showToast(`${title} exportado en ${type} correctamente`, 'success');
+        }, 1500);
     });
 });

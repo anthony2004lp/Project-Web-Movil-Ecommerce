@@ -132,13 +132,14 @@ body {
 
 .search-wrap input {
     width: min(760px, 100%);
-    height: 42px;
+    height: 52px;
     border: 1px solid #bcaaff;
     border-radius: 12px;
-    padding: 0 16px;
+    padding: 0 20px;
     outline: none;
     color: #606575;
     background: #fff;
+    font-size: 1rem;
 }
 
 .catalog-layout {
@@ -178,13 +179,13 @@ body {
     width: 100%;
     display: block;
     border: 0;
-    padding: 5px 8px;
+    padding: 10px 14px;
     border-radius: 999px;
     background: transparent;
     color: #7d8494;
     text-align: left;
     text-transform: uppercase;
-    font-size: 0.72rem;
+    font-size: 0.85rem;
     font-weight: 800;
     cursor: pointer;
 }
@@ -201,31 +202,31 @@ body {
 }
 
 .product-card {
-    min-height: 190px;
-    padding: 22px 22px 16px;
-    border-radius: 13px;
+    min-height: 240px;
+    padding: 28px 24px 20px;
+    border-radius: 16px;
     background: rgba(255, 255, 255, 0.72);
     box-shadow: 5px 6px 0 rgba(111, 86, 235, 0.18);
 }
 
 .product-image {
-    height: 58px;
+    height: 72px;
     display: grid;
     place-items: center;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
 }
 
 .product-card h3 {
     margin: 0;
     text-align: center;
-    font-size: 0.86rem;
+    font-size: 1rem;
 }
 
 .product-card p {
-    margin: 4px 0 14px;
+    margin: 6px 0 16px;
     text-align: center;
     color: #8a8f9d;
-    font-size: 0.65rem;
+    font-size: 0.78rem;
     font-weight: 800;
 }
 
@@ -239,27 +240,27 @@ body {
 .product-bottom strong {
     display: block;
     color: #7534ff;
-    font-size: 1.35rem;
+    font-size: 1.5rem;
     line-height: 1;
 }
 
 .product-bottom small {
     display: block;
-    margin-top: 4px;
+    margin-top: 6px;
     color: #20c46b;
-    font-size: 0.62rem;
+    font-size: 0.75rem;
     font-weight: 700;
 }
 
 .add-btn {
-    min-width: 76px;
-    height: 30px;
+    min-width: 90px;
+    height: 38px;
     border: 0;
     border-radius: 999px;
     background: linear-gradient(135deg, #2368f5, #842ff0);
     box-shadow: 0 8px 14px rgba(93, 64, 239, 0.35);
     color: #fff;
-    font-size: 0.78rem;
+    font-size: 0.85rem;
     font-weight: 900;
     cursor: pointer;
 }

@@ -7,68 +7,72 @@
 </head>
 
 <body>
+
 <div th:replace="~{fragments/navbar-admin :: navbar}"></div>
-<!-- Sidebar a la izquierda -->
-<div th:replace="~{fragments/sidebar-admin :: sidebar}"></div>
-<main class="page-shell">
+
+<main class="admin-page">
+
+    <div class="admin-shell">
+
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebar-admin :: sidebar(activeLink='productmanagement')}"></div>
+
+        <!-- Contenido -->
         <section class="content">
+
             <header class="content-header">
+
                 <div>
                     <h1>PRODUCTOS</h1>
-                    <p>Gestión el catálogo - PANEL HMI . PLC . MÓDULO REMOTO</p>
+                    <p>Gestión del catálogo de productos</p>
                 </div>
 
-                <button type="button" class="new-product-btn" id="newProductBtn">+ Nuevo producto</button>
+                <button type="button"
+                        class="new-product-btn"
+                        id="newProductBtn">
+                    + Nuevo producto
+                </button>
+
             </header>
 
             <section class="toolbar">
-                <input id="searchInput" type="search" placeholder="🔍 Buscar producto.....">
+
+                <input id="searchInput"
+                       type="search"
+                       placeholder="🔍 Buscar producto.....">
 
                 <select id="statusFilter">
                     <option value="todos">Todos los estados</option>
                     <option value="activo">Activo</option>
                     <option value="inactivo">Inactivo</option>
                 </select>
+
             </section>
 
             <section class="product-grid" id="productGrid">
-                <article class="admin-product-card" data-name="Panel HMI 7 Touchscreen" data-status="inactivo">
-                    <span class="status-badge inactive">Inactivo</span>
-                    <div class="product-image">🖥️</div>
-                    <h2>Panel HMI 7” Touchscreen</h2>
-                    <p>HMI-001 · PANEL HMI · Stock: 5 · S/ 1290.00</p>
-                    <div class="card-actions">
-                        <button type="button" class="edit-btn">✎ Editar</button>
-                        <button type="button" class="activate-btn">Activar</button>
+
+                <article class="admin-product-card">
+                    <span class="status-badge inactive">...</span>
+
+                    <div class="product-image">
+                        ⌛
                     </div>
+
+                    <h2>Cargando productos...</h2>
+
+                    <p>-</p>
                 </article>
 
-                <article class="admin-product-card" data-name="Panel HMI 7 Touchscreen" data-status="activo">
-                    <span class="status-badge active">Activo</span>
-                    <div class="product-image">🖥️</div>
-                    <h2>Panel HMI 7” Touchscreen</h2>
-                    <p>HMI-001 · PANEL HMI · Stock: 5 · S/ 1290.00</p>
-                    <div class="card-actions">
-                        <button type="button" class="edit-btn">✎ Editar</button>
-                        <button type="button" class="deactivate-btn">Desactivar</button>
-                    </div>
-                </article>
-
-                <article class="admin-product-card" data-name="Panel HMI 7 Touchscreen" data-status="activo">
-                    <span class="status-badge active">Activo</span>
-                    <div class="product-image">🖥️</div>
-                    <h2>Panel HMI 7” Touchscreen</h2>
-                    <p>HMI-001 · PANEL HMI · Stock: 5 · S/ 1290.00</p>
-                    <div class="card-actions">
-                        <button type="button" class="edit-btn">✎ Editar</button>
-                        <button type="button" class="deactivate-btn">Desactivar</button>
-                    </div>
-                </article>
             </section>
+
         </section>
+
+    </div>
+
 </main>
 
-<script th:src="@{/js/productmanagement.js}"></script>
-</body>
+<script type="module" th:src="@{/js/products.js}"></script>
+<script type="module" th:src="@{/js/session.js}"></script>
 
+</body>
 </html>

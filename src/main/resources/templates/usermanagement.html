@@ -2,51 +2,74 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <th:block th:replace="~{fragments/layout :: head('Control de Clientes')}"></th:block>
+    <th:block th:replace="~{fragments/layout :: head('Control de Usuarios')}"></th:block>
     <link rel="stylesheet" th:href="@{/css/usermanagement.css}">
 </head>
 
 <body>
+
 <div th:replace="~{fragments/navbar-admin :: navbar}"></div>
 
-<main class="page-shell">
+<main class="admin-page">
+
+    <div class="admin-shell">
+
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebar-admin :: sidebar(activeLink='usermanagement')}"></div>
+
+        <!-- Contenido -->
         <section class="content">
+
             <header class="content-header">
+
                 <div>
-                    <h1>CLIENTES</h1>
-                    <p>Gestión de clientes registrados</p>
+                    <h1>USUARIOS</h1>
+                    <p>Gestión de usuarios y roles</p>
                 </div>
 
-                <button type="button" class="new-client-btn" id="newClientBtn">+ Nuevo cliente</button>
+                <button type="button"
+                        class="new-client-btn"
+                        id="newClientBtn">
+                    + Nuevo usuario
+                </button>
+
             </header>
 
             <section class="clients-table-card">
+
                 <table>
+
                     <thead>
                     <tr>
-                        <th>NOMBRE</th>
-                        <th>EMAIL</th>
-                        <th>PEDIDOS</th>
+                        <th>USUARIO</th>
+                        <th>CONTACTO</th>
+                        <th>ROL / ESTADO</th>
                         <th>ACCIONES</th>
                     </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody id="userTableBody">
+
                     <tr>
-                        <td>Adrian Cliente</td>
-                        <td>carlos@allprocess.com</td>
-                        <td>3 pedidos</td>
-                        <td>
-                            <button type="button" class="reset-btn">🔑 Reset Pass</button>
+                        <td colspan="4">
+                            Cargando usuarios...
                         </td>
                     </tr>
+
                     </tbody>
+
                 </table>
+
             </section>
+
         </section>
+
+    </div>
+
 </main>
 
-<script th:src="@{/js/usermanagement.js}"></script>
-</body>
+<script type="module" th:src="@{/js/user-management.js}"></script>
+<script type="module" th:src="@{/js/session.js}"></script>
 
+</body>
 </html>

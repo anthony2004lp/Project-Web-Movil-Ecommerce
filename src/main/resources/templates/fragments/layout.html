@@ -12,6 +12,7 @@
     
     <!-- Global CSS -->
     <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
     
     <!-- Scripts base -->
     <script th:src="@{/js/main.js}" defer></script>
@@ -42,30 +43,7 @@
         </div>
     </header>
 
-    <!-- Sidebar for Dashboards -->
-    <aside th:fragment="sidebar(activeLink)" class="sidebar" id="sidebar">
-        <section class="sidebar-group">
-            <h2>PRINCIPAL</h2>
-            <a th:href="@{/homeadmin}" class="nav-link" th:classappend="${activeLink == 'dashboard'} ? 'active' : ''"><span>📊</span> Dashboard</a>
-            <a th:href="@{/ordermanagement}" class="nav-link" th:classappend="${activeLink == 'ordermanagement'} ? 'active' : ''"><span>📦</span> Pedidos</a>
-        </section>
-        <section class="sidebar-group">
-            <h2>CATÁLOGO</h2>
-            <a th:href="@{/productmanagement}" class="nav-link" th:classappend="${activeLink == 'productmanagement'} ? 'active' : ''"><span>📁</span> Productos</a>
-        </section>
-        <section class="sidebar-group">
-            <h2>USUARIOS</h2>
-            <a th:href="@{/usermanagement}" class="nav-link" th:classappend="${activeLink == 'usermanagement'} ? 'active' : ''"><span>👥</span> Usuarios</a>
-            <a th:href="@{/customermanagement}" class="nav-link" th:classappend="${activeLink == 'customermanagement'} ? 'active' : ''"><span>🛒</span> Clientes</a>
-        </section>
-        <section class="sidebar-group">
-            <h2>REPORTES</h2>
-            <a th:href="@{/adminreports}" class="nav-link" th:classappend="${activeLink == 'adminreports'} ? 'active' : ''"><span>📈</span> Reportes</a>
-        </section>
-        <footer class="sidebar-footer" style="margin-top: auto; padding-top: 20px;">
-             <a th:href="@{/logout}" class="button logout-button" style="width: 100%; color: var(--danger);">Salir</a>
-        </footer>
-    </aside>
+
 
     <!-- Footer -->
     <footer th:fragment="footer" class="form-footer" style="padding: 20px; border-top: 1px solid var(--line-soft); margin-top: 40px;">

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/layout :: head('Perfil de Administrador')}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar-admin :: navbar}"></div>
+
+<main class="profile-page">
+
+    <aside class="profile-sidebar">
+
+        <section class="profile-card">
+
+            <img
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Ccircle cx='48' cy='48' r='46' fill='%23e9e3ff'/%3E%3Ccircle cx='48' cy='34' r='16' fill='%232d236a'/%3E%3Cpath d='M20 80c4-19 17-30 28-30s24 11 28 30' fill='%232d236a'/%3E%3C/svg%3E"
+                    alt="Usuario">
+
+            <h1>
+                <span data-user-field="nombre">Cargando...</span>
+                <span data-user-field="apellido"></span>
+            </h1>
+
+            <p data-user-field="email">
+                Cargando...
+            </p>
+
+            <span data-user-field="role">
+                Cargando...
+            </span>
+
+        </section>
+
+        <nav class="profile-menu">
+
+            <a class="active"
+               th:href="@{/profileadmin}">
+                👤 Datos personales
+            </a>
+
+            <a th:href="@{/homeadmin}">
+                📊 Panel de administración
+            </a>
+
+            <a th:href="@{/login}"
+               data-logout>
+                🚪 Cerrar sesión
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <section class="profile-content">
+
+        <section class="panel">
+
+            <h2>Datos Personales</h2>
+
+            <form class="personal-form">
+
+                <label>
+                    <span>NOMBRE</span>
+                    <input type="text"
+                           value="Cargando..."
+                           data-user-field="nombre">
+                </label>
+
+                <label>
+                    <span>APELLIDO</span>
+                    <input type="text"
+                           value="-"
+                           data-user-field="apellido">
+                </label>
+
+                <label>
+                    <span>CORREO ELECTRONICO</span>
+                    <input type="email"
+                           value="Cargando..."
+                           data-user-field="email">
+                </label>
+
+                <label>
+                    <span>TELEFONO</span>
+                    <input type="text"
+                           value="-"
+                           data-user-field="telefono">
+                </label>
+
+                <label>
+                    <span>DNI</span>
+                    <input type="text"
+                           value="-"
+                           data-user-field="dni">
+                </label>
+
+                <label>
+                    <span>ROL</span>
+                    <input class="role-input"
+                           type="text"
+                           value="Cargando..."
+                           data-user-field="role"
+                           readonly>
+                </label>
+
+            </form>
+
+        </section>
+
+        <section class="panel">
+
+            <h2>Mis Direcciones</h2>
+
+            <div class="address-grid"
+                 data-user-addresses>
+
+                <article class="address-card primary"
+                         data-empty-state>
+
+                    <span class="tag green">
+                        Principal
+                    </span>
+
+                    <h3>
+                        Sin dirección registrada
+                    </h3>
+
+                    <p data-user-field="direccion"
+                       data-empty-value>
+                        -
+                    </p>
+
+                    <p>-</p>
+
+                    <button type="button">
+                        Editar
+                    </button>
+
+                </article>
+
+                <button type="button"
+                        class="add-address"
+                        id="addAddressBtn">
+
+                    <span>+</span>
+                    Agregar dirección
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </section>
+
+</main>
+
+<script type="module" th:src="@{/js/profile.js}"></script>
+<script type="module" th:src="@{/js/session.js}"></script>
+
+</body>
+</html>

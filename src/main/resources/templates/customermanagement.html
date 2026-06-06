@@ -2,72 +2,75 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <th:block th:replace="~{fragments/layout :: head('Control de Usuarios')}"></th:block>
+    <th:block th:replace="~{fragments/layout :: head('Control de Clientes')}"></th:block>
     <link rel="stylesheet" th:href="@{/css/customermanagement.css}">
 </head>
 
 <body>
+
 <div th:replace="~{fragments/navbar-admin :: navbar}"></div>
-<!-- Sidebar a la izquierda -->
-<div th:replace="~{fragments/sidebar-admin :: sidebar}"></div>
-<main class="page-shell">
+
+<main class="admin-page">
+
+    <div class="admin-shell">
+
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebar-admin :: sidebar(activeLink='customermanagement')}"></div>
+
+        <!-- Contenido -->
         <section class="content">
+
             <header class="content-header">
+
                 <div>
-                    <h1>REPORTES</h1>
-                    <p>Reportes del sistema — exportables en Excel y PDF</p>
+                    <h1>CLIENTES</h1>
+                    <p>Gestión de clientes registrados</p>
                 </div>
 
-                <button type="button" class="new-user-btn" id="newUserBtn">+ Nuevo usuario</button>
+                <button type="button"
+                        class="new-user-btn"
+                        id="newUserBtn">
+                    + Nuevo cliente
+                </button>
+
             </header>
 
             <section class="users-table-card">
+
                 <table>
+
                     <thead>
                     <tr>
-                        <th>NOMBRE</th>
-                        <th>EMAIL</th>
-                        <th>PEDIDOS</th>
+                        <th>CLIENTE</th>
+                        <th>CONTACTO</th>
+                        <th>ESTADO</th>
                         <th>ACCIONES</th>
                     </tr>
                     </thead>
-                    <tbody>
+
+                    <tbody id="customerTableBody"
+                           data-customers-table>
+
                     <tr>
-                        <td>Admin Sistema</td>
-                        <td>admin@allprocess.com</td>
-                        <td><span class="badge admin">ADMIN</span></td>
-                        <td>
-                            <button type="button" class="table-btn reset">🔑 Reset Pass</button>
-                            <button type="button" class="table-btn edit">✎ Editar</button>
+                        <td colspan="4">
+                            Cargando clientes...
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>Juan Trabajador</td>
-                        <td>juan@allprocess.com</td>
-                        <td><span class="badge worker">TRABAJAR</span></td>
-                        <td>
-                            <button type="button" class="table-btn reset">🔑 Reset Pass</button>
-                            <button type="button" class="table-btn edit">✎ Editar</button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Adrian Cliente</td>
-                        <td>carlos@allprocess.com</td>
-                        <td><span class="badge client">CLIENTE</span></td>
-                        <td>
-                            <button type="button" class="table-btn reset">🔑 Reset Pass</button>
-                            <button type="button" class="table-btn edit">✎ Editar</button>
-                        </td>
-                    </tr>
                     </tbody>
+
                 </table>
+
             </section>
+
         </section>
+
+    </div>
+
 </main>
 
-<script th:src="@{/js/customermanagement.js}"></script>
-</body>
+<script type="module" th:src="@{/js/customer-management.js}"></script>
+<script type="module" th:src="@{/js/session.js}"></script>
 
+</body>
 </html>

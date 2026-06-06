@@ -114,58 +114,58 @@ body {
 }
 
 .orders-page {
-    max-width: 840px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 16px 30px 34px;
+    padding: 24px 32px 48px;
 }
 
 .page-title h1 {
-    margin: 0 0 5px;
+    margin: 0 0 8px;
     color: #2d236a;
-    font-size: 1.28rem;
+    font-size: 1.8rem;
     font-weight: 900;
 }
 
 .page-title p {
-    margin: 0 0 12px;
+    margin: 0 0 24px;
     color: #7d8494;
-    font-size: 0.78rem;
+    font-size: 1rem;
     font-weight: 700;
 }
 
 .orders-list {
     display: grid;
-    gap: 12px;
+    gap: 20px;
 }
 
 .order-card {
     overflow: hidden;
-    border-radius: 9px;
+    border-radius: 14px;
     background: #fff;
-    box-shadow: 3px 3px 0 rgba(126, 94, 240, 0.14);
+    box-shadow: 4px 4px 0 rgba(126, 94, 240, 0.14);
     border: 1px solid #dacdff;
 }
 
 .order-header {
-    min-height: 32px;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 6px 18px 4px;
+    padding: 12px 24px 10px;
     border-bottom: 1px solid #e5dcff;
 }
 
 .order-header h2 {
     margin: 0;
     color: #111827;
-    font-size: 0.78rem;
+    font-size: 1.1rem;
     font-weight: 900;
 }
 
 .order-header span {
     display: block;
     color: #6e7484;
-    font-size: 0.55rem;
+    font-size: 0.85rem;
     font-weight: 700;
 }
 
@@ -173,11 +173,12 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 64px;
-    height: 19px;
+    min-width: 90px;
+    height: 30px;
     border-radius: 999px;
-    font-size: 0.58rem;
+    font-size: 0.78rem;
     font-weight: 900;
+    padding: 0 14px;
 }
 
 .badge.pending {
@@ -199,63 +200,63 @@ body {
 }
 
 .order-product {
-    height: 48px;
+    height: 64px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 0 18px;
+    gap: 16px;
+    padding: 0 24px;
 }
 
 .product-icon {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     display: grid;
     place-items: center;
-    border-radius: 6px;
+    border-radius: 8px;
     background: linear-gradient(135deg, #2368f5, #842ff0);
     color: #fff;
-    font-size: 1.05rem;
+    font-size: 1.3rem;
 }
 
 .order-product p {
-    margin: 0 0 3px;
+    margin: 0 0 4px;
     color: #7a8190;
-    font-size: 0.66rem;
+    font-size: 0.85rem;
     font-weight: 800;
 }
 
 .order-product strong {
     color: #6471d4;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     font-weight: 900;
 }
 
 .tracker {
-    height: 56px;
+    height: 72px;
     display: grid;
-    grid-template-columns: 34px 1fr 34px 1fr 34px;
+    grid-template-columns: 42px 1fr 42px 1fr 42px;
     align-items: start;
-    gap: 18px;
-    padding: 8px 116px 6px;
+    gap: 24px;
+    padding: 12px 140px 8px;
     background: #eee8ff;
 }
 
 .track-step {
     display: grid;
     justify-items: center;
-    gap: 3px;
+    gap: 6px;
     color: #777e8d;
 }
 
 .track-step span {
-    width: 34px;
-    height: 34px;
+    width: 42px;
+    height: 42px;
     display: grid;
     place-items: center;
     border-radius: 50%;
     background: #ded9ee;
     color: #9a9faa;
-    font-size: 0.75rem;
+    font-size: 0.95rem;
     font-weight: 900;
 }
 
@@ -266,7 +267,7 @@ body {
 }
 
 .track-step small {
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     font-weight: 900;
 }
 
@@ -276,8 +277,8 @@ body {
 }
 
 .track-line {
-    height: 1px;
-    margin-top: 17px;
+    height: 2px;
+    margin-top: 20px;
     background: #d5cdea;
 }
 
@@ -300,7 +301,7 @@ body {
     }
 
     .tracker {
-        padding: 8px 22px 6px;
-        gap: 10px;
+        padding: 12px 22px 8px;
+        gap: 14px;
     }
 }

@@ -2,23 +2,55 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <th:block th:replace="~{fragments/layout :: head('Reportes adminstrador')}"></th:block>
+    <th:block th:replace="~{fragments/layout :: head('Reportes administrador')}"></th:block>
+
     <link rel="stylesheet" th:href="@{/css/adminreports.css}">
 </head>
 
 <body>
-<div th:replace="~{fragments/navbar-admin :: navbar}"></div>
-<!-- Sidebar a la izquierda -->
-<div th:replace="~{fragments/sidebar-admin :: sidebar}"></div>
-<main class="page-shell">
 
+<div th:replace="~{fragments/navbar-admin :: navbar}"></div>
+
+<main class="admin-page">
+    <div class="admin-shell">
+
+        <div th:replace="~{fragments/sidebar-admin :: sidebar(activeLink='adminreports')}"></div>
 
         <section class="content">
+
             <header class="content-header">
                 <h1>REPORTES</h1>
                 <p>Reportes del sistema — exportables en Excel y PDF</p>
             </header>
 
+            <!-- RESUMEN GENERAL -->
+            <section class="report-card">
+                <div class="report-title">
+                    <h2>📊 RESUMEN GENERAL</h2>
+                    <div>
+                        <button type="button" class="export-btn excel">▣ Excel</button>
+                        <button type="button" class="export-btn pdf">◆ PDF</button>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>USUARIOS</th>
+                        <th>PRODUCTOS</th>
+                        <th>PEDIDOS</th>
+                        <th>VENTAS</th>
+                    </tr>
+                    </thead>
+                    <tbody data-report-summary>
+                    <tr>
+                        <td colspan="4">Cargando métricas...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- PEDIDOS -->
             <section class="report-card">
                 <div class="report-title">
                     <h2>📦 REPORTES PEDIDOS</h2>
@@ -39,38 +71,18 @@
                         <th>TOTAL</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="reportOrders" data-report-orders>
                     <tr>
-                        <td><a href="#">ORD-2026-001</a></td>
-                        <td>Adrian Cliente</td>
-                        <td>13/04/2026</td>
-                        <td>Panel HMI 7", PLC S7-300</td>
-                        <td><span class="status">● Entregado</span></td>
-                        <td>S/ 2147.25</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">ORD-2026-001</a></td>
-                        <td>Adrian Cliente</td>
-                        <td>13/04/2026</td>
-                        <td>Panel HMI 7", PLC S7-300</td>
-                        <td><span class="status">● Entregado</span></td>
-                        <td>S/ 2147.25</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">ORD-2026-001</a></td>
-                        <td>Adrian Cliente</td>
-                        <td>13/04/2026</td>
-                        <td>Panel HMI 7", PLC S7-300</td>
-                        <td><span class="status">● Entregado</span></td>
-                        <td>S/ 2147.25</td>
+                        <td colspan="6">Cargando pedidos...</td>
                     </tr>
                     </tbody>
                 </table>
             </section>
 
+            <!-- PRODUCTOS AGOTADOS -->
             <section class="report-card">
                 <div class="report-title">
-                    <h2>🔴PRODUCTOS AGOTADOS</h2>
+                    <h2>🔴 PRODUCTOS AGOTADOS</h2>
                     <div>
                         <button type="button" class="export-btn excel">▣ Excel</button>
                         <button type="button" class="export-btn pdf">◆ PDF</button>
@@ -86,20 +98,18 @@
                         <th>PRECIO</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody data-report-low-stock>
                     <tr>
-                        <td>Módulo Remoto Analógico</td>
-                        <td>MOD-002</td>
-                        <td>MÓDULO REMOTO</td>
-                        <td>S/ 1100.00</td>
+                        <td colspan="4">Cargando productos...</td>
                     </tr>
                     </tbody>
                 </table>
             </section>
 
+            <!-- PRODUCTOS DESACTIVADOS -->
             <section class="report-card">
                 <div class="report-title">
-                    <h2>🗑️PRODUCTOS DESACTIVADOS</h2>
+                    <h2>🗑️ PRODUCTOS DESACTIVADOS</h2>
                     <div>
                         <button type="button" class="export-btn excel">▣ Excel</button>
                         <button type="button" class="export-btn pdf">◆ PDF</button>
@@ -113,20 +123,26 @@
                         <th>SKU</th>
                         <th>CATEGORIA</th>
                         <th>PRECIO</th>
-                        <th>ACCION</th>
+                        <th>ACCIÓN</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody data-report-inactive-products>
                     <tr>
-                        <td colspan="5" class="empty">No hay productos desactivados</td>
+                        <td colspan="5" class="empty">
+                            No hay productos desactivados
+                        </td>
                     </tr>
                     </tbody>
                 </table>
             </section>
+
         </section>
+
+    </div>
 </main>
 
-<script th:src="@{/js/adminreports.js}"></script>
-</body>
+<script type="module" th:src="@{/js/admin-reports.js}"></script>
+<script type="module" th:src="@{/js/session.js}"></script>
 
+</body>
 </html>

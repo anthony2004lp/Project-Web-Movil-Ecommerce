@@ -7,18 +7,29 @@
 </head>
 
 <body>
+
 <div th:replace="~{fragments/navbar-admin :: navbar}"></div>
-<!-- Sidebar a la izquierda -->
-<div th:replace="~{fragments/sidebar-admin :: sidebar}"></div>
-<main class="page-shell">
+
+<main class="admin-page">
+
+    <div class="admin-shell">
+
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebar-admin :: sidebar(activeLink='ordermanagement')}"></div>
+
+        <!-- Contenido -->
         <section class="content">
+
             <header class="content-header">
                 <h1>PEDIDOS</h1>
                 <p>Gestión y cambio de estados</p>
             </header>
 
             <section class="orders-card">
-                <div class="orders-title">📦 REPORTES PEDIDOS</div>
+
+                <div class="orders-title">
+                    📦 REPORTES PEDIDOS
+                </div>
 
                 <table>
                     <thead>
@@ -32,43 +43,29 @@
                         <th>ACCION</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td><a href="#">ORD-2026-001</a></td>
-                        <td>Adrian Cliente</td>
-                        <td>13/04/2026</td>
-                        <td>Panel HMI 7", PLC S7-300</td>
-                        <td><span class="status">● Entregado</span></td>
-                        <td>S/ 2147.25</td>
-                        <td><button type="button" class="complete-btn">✓ Completo</button></td>
-                    </tr>
+
+                    <tbody id="orderTableBody">
 
                     <tr>
-                        <td><a href="#">ORD-2026-001</a></td>
-                        <td>Adrian Cliente</td>
-                        <td>13/04/2026</td>
-                        <td>Panel HMI 7", PLC S7-300</td>
-                        <td><span class="status">● Entregado</span></td>
-                        <td>S/ 2147.25</td>
-                        <td><button type="button" class="complete-btn">✓ Completo</button></td>
+                        <td colspan="7">
+                            Cargando pedidos...
+                        </td>
                     </tr>
 
-                    <tr>
-                        <td><a href="#">ORD-2026-001</a></td>
-                        <td>Adrian Cliente</td>
-                        <td>13/04/2026</td>
-                        <td>Panel HMI 7", PLC S7-300</td>
-                        <td><span class="status">● Entregado</span></td>
-                        <td>S/ 2147.25</td>
-                        <td><button type="button" class="complete-btn">✓ Completo</button></td>
-                    </tr>
                     </tbody>
+
                 </table>
+
             </section>
+
         </section>
+
+    </div>
+
 </main>
 
-<script th:src="@{/js/ordermanagement.js}"></script>
-</body>
+<script type="module" th:src="@{/js/order-management.js}"></script>
+<script type="module" th:src="@{/js/session.js}"></script>
 
+</body>
 </html>

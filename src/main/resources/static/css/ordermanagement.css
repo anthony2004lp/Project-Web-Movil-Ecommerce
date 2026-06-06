@@ -87,62 +87,6 @@ body {
     box-shadow: 0 4px 12px rgba(255, 0, 0, 0.15);
 }
 
-.admin-page {
-    padding: 54px 30px 44px;
-}
-
-.admin-shell {
-    max-width: 1050px;
-    min-height: 430px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    overflow: hidden;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.62);
-    box-shadow: 4px 4px 0 rgba(126, 94, 240, 0.14);
-}
-
-.sidebar {
-    padding: 34px 8px;
-    border-right: 1px solid #ded4ff;
-}
-
-.sidebar nav {
-    display: grid;
-    gap: 9px;
-}
-
-.sidebar p {
-    margin: 10px 0 4px;
-    color: #6d7080;
-    text-align: center;
-    font-size: 0.68rem;
-    font-weight: 900;
-    letter-spacing: 0.03em;
-}
-
-.sidebar a {
-    display: block;
-    margin: 0 2px;
-    padding: 8px 18px;
-    border-radius: 6px;
-    color: #7b8190;
-    font-size: 0.78rem;
-    font-weight: 800;
-    text-decoration: none;
-}
-
-.sidebar a.active {
-    background: #e6e8ff;
-    color: #6d2cff;
-    border: 1px solid #cfd3ff;
-}
-
-.content {
-    padding: 38px 36px 40px;
-}
-
 .content-header h1 {
     margin: 0 0 10px;
     color: #2d236a;
@@ -232,23 +176,6 @@ td a {
 }
 
 @media (max-width: 850px) {
-    .admin-page {
-        padding: 24px 14px;
-    }
-
-    .admin-shell {
-        grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-        border-right: 0;
-        border-bottom: 1px solid #ded4ff;
-    }
-
-    .content {
-        padding: 24px 14px;
-    }
-
     .orders-card {
         overflow-x: auto;
     }

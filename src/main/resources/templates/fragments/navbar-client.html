@@ -14,15 +14,15 @@
         <nav class="main-nav" id="mainNav">
             <a th:href="@{/homeclient}">Inicio</a>
             <a th:href="@{/catalogclient}">Catálogo</a>
-            <!--<a th:href="@{/carclient}">Carrito</a>-->
+            <a th:href="@{/carclient}">Carrito</a>
             <a th:href="@{/myorders}">Mis Pedidos</a>
         </nav>
 
         <div class="admin-profile" style="display: flex; gap: 15px; align-items: center;">
-            <a class="cart-button" th:href="@{/carclient}" aria-label="Carrito" style="font-size:1.2rem; text-decoration:none;">
+            <!--<a class="cart-button" th:href="@{/carclient}" aria-label="Carrito" style="font-size:1.2rem; text-decoration:none;">
                 🛒
-            </a>
-            <a th:href="@{/profile}" class="profile-pill" style="display:flex; align-items:center; gap:8px; background:var(--bg-main); padding:4px 12px; border-radius:20px;">
+            </a>-->
+            <a th:href="@{/profileclient}" class="profile-pill" style="display:flex; align-items:center; gap:8px; background:var(--bg-main); padding:4px 12px; border-radius:20px;">
                 <img th:src="@{/img/user.png}" alt="Client Avatar" style="width:24px; height:24px; border-radius:50%;" loading="lazy">
                 <strong>Cliente</strong>
             </a>
