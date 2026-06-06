@@ -7,12 +7,12 @@
 <body>
     <div class="page-shell">
         <div th:replace="~{fragments/navbar-visitor :: navbar}"></div>
-        <main style="flex: 1; display: grid; place-items: center; padding: 40px 20px;">
-            <section class="register-card" style="width: 100%; max-width: 560px; background: #fff; padding: 40px; border-radius: var(--radius-card); box-shadow: var(--shadow-soft);">
+        <main style="flex: 1; display: grid; place-items: center; padding: 60px 35px;">
+            <section class="register-card" style="width: 100%; max-width: 520px; background: #fff; padding: 40px; border-radius: var(--radius-card); box-shadow: var(--shadow-soft);">
                 <header class="brand-block" style="text-align: center; margin-bottom: 2rem;">
-                    <img class="brand-mark" th:src="@{/img/allprocess_logo.png}" style="width: 60px; height: 60px; margin-bottom: 1rem;" alt="Logo">
-                    <h1 style="font-size: 1.5rem; font-weight: 800;">Crea tu cuenta</h1>
-                    <p style="color: var(--text-secondary);">Únete a la plataforma All Process</p>
+                    <img class="brand-mark" th:src="@{/img/allprocess_logo.png}" style="width: 115px; height: 60px; margin-bottom: 1rem;" alt="Logo">
+                    <h1 style="font-size: 1.2rem; font-weight: 800; letter-spacing: 2px;">ALL PROCESS S.A.C.</h1>
+                    <p style="color: var(--text-secondary); font-weight: 600 ; letter-spacing: 1px ;">CREAR CUENTA</p>
                 </header>
 
                 <form class="register-form" id="registerForm" novalidate>
@@ -54,16 +54,16 @@
                             <input type="password" name="password" placeholder="••••••••" required minlength="6">
                         </label>
                         <label class="field">
-                            <span>Confirmar</span>
+                            <span>Confirmar contraseña</span>
                             <input type="password" name="confirmPassword" placeholder="••••••••" required minlength="6">
                         </label>
                     </div>
 
-                    <p class="form-message" id="formMessage" aria-live="polite" style="text-align: center; margin-bottom: 1rem; color: var(--danger); font-size: 0.85rem;"></p>
+                    <p class="form-message" id="formMessage" aria-live="polite" style="text-align: center; margin-bottom: -2rem; color: var(--danger); font-size: 0.85rem;"></p>
 
-                    <button type="submit" class="button button-primary" style="width: 100%;">Crear cuenta</button>
+                    <button type="submit" class="button button-primary" style="width: 100%; font-size: 1.1rem; font-weight: 800;border-radius: 15px;padding: 16px;">Crear cuenta</button>
 
-                    <footer class="form-footer" style="margin-top: 2rem; border-top: 1px solid var(--line-soft); padding-top: 1.5rem;">
+                    <footer class="form-footer" style="margin-top: -0.5rem; ; font-weight: 700;border-top: none; var(--line-soft); padding-top: 1.5rem;">
                         ¿Ya tienes cuenta?
                         <a th:href="@{/login}" style="color: var(--primary); font-weight: 700;">Inicia sesión</a>
                     </footer>
