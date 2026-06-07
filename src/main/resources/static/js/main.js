@@ -153,7 +153,16 @@ function getUserRol() {
     return localStorage.getItem("userRol");
 }
 
-function logout() {
+async function logout() {
+    const token = localStorage.getItem("token");
+    if (token) {
+        try {
+            await fetch("/api/auth/logout", {
+                method: "POST",
+                headers: { "Authorization": "Bearer " + token }
+            });
+        } catch (_) {}
+    }
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     localStorage.removeItem("userEmail");
