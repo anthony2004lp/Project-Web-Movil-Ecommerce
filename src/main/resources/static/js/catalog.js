@@ -1,81 +1,145 @@
 const searchInput = document.getElementById("searchInput");
-const products = Array.from(document.querySelectorAll(".product-card"));
+const productsGrid = document.getElementById("productsGrid");
 const cartCount = document.getElementById("cartCount");
-const filterButtons = Array.from(document.querySelectorAll(".filter-option"));
+const categoryFilters = document.getElementById("categoryFilters");
+const filtersAside = document.querySelector(".filters");
 
+let allProducts = [];
 let selectedCategory = "Todos";
 let selectedPrice = "Todos";
 let selectedStock = "con";
-let count = 0;
+
+function getCart() {
+    try { return JSON.parse(localStorage.getItem('cart') || '[]'); } catch { return []; }
+}
+
+function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+}
+
+function updateCartCount() {
+    const cart = getCart();
+    const total = cart.reduce((sum, item) => sum + item.cantidad, 0);
+    if (cartCount) cartCount.textContent = total;
+}
+
+function addToCart(productId, nombre, precio, stock) {
+    if (stock <= 0) {
+        showToast('Producto sin stock disponible', 'error');
+        return;
+    }
+    let cart = getCart();
+    const existing = cart.find(item => item.idProducto === productId);
+    if (existing) {
+        if (existing.cantidad >= stock) {
+            showToast('Stock máximo alcanzado', 'error');
+            return;
+        }
+        existing.cantidad += 1;
+    } else {
+        cart.push({ idProducto: productId, nombre, precio, stock, cantidad: 1 });
+    }
+    saveCart(cart);
+    showToast(`"${nombre}" agregado al carrito`, 'success');
+}
 
 function matchesPrice(price, range) {
     if (range === "Todos") return true;
-
-    if (range === "0-1500") {
-        return price >= 500 && price <= 1500;
-    }
-
-    if (range === "1500-3000") {
-        return price >= 1500 && price <= 3000;
-    }
-
-    if (range === "3000") {
-        return price >= 3000;
-    }
-
+    if (range === "0-1500") return price >= 500 && price <= 1500;
+    if (range === "1500-3000") return price >= 1500 && price <= 3000;
+    if (range === "3000") return price >= 3000;
     return true;
 }
 
-function filterProducts() {
+function renderProducts() {
     const search = searchInput.value.trim().toLowerCase();
-
-    products.forEach((product) => {
-        const name = product.dataset.name.toLowerCase();
-        const category = product.dataset.category;
-        const price = Number(product.dataset.price);
-        const stock = product.dataset.stock;
-
+    const filtered = allProducts.filter(p => {
+        const name = (p.nombre || '').toLowerCase();
+        const category = p.nombreCategoria || p.categoria?.nombre || '';
         const bySearch = name.includes(search) || category.toLowerCase().includes(search);
         const byCategory = selectedCategory === "Todos" || category === selectedCategory;
-        const byPrice = matchesPrice(price, selectedPrice);
-        const byStock = selectedStock === "Todos" || stock === selectedStock;
-
-        product.classList.toggle("hidden", !(bySearch && byCategory && byPrice && byStock));
+        const byPrice = matchesPrice(Number(p.precio), selectedPrice);
+        const byStock = selectedStock === "Todos" || (selectedStock === "con" && p.stock > 0) || (selectedStock === "sin" && p.stock === 0);
+        return bySearch && byCategory && byPrice && byStock;
     });
+
+    if (filtered.length === 0) {
+        productsGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-secondary);">No se encontraron productos</p>';
+        return;
+    }
+
+    productsGrid.innerHTML = filtered.map(p => `
+        <article class="product-card" data-product-id="${p.idProducto}" data-name="${p.nombre}" data-category="${p.nombreCategoria || p.categoria?.nombre || ''}" data-price="${p.precio}" data-stock="${p.stock > 0 ? 'con' : 'sin'}">
+            <div class="product-image">📦</div>
+            <h3>${p.nombre}</h3>
+            <p>${p.nombreCategoria || p.categoria?.nombre || ''}${p.nombreProveedor || p.proveedor?.nombre ? ' · ' + (p.nombreProveedor || p.proveedor?.nombre) : ''}</p>
+            <div class="product-bottom">
+                <div>
+                    <strong>S/ ${Number(p.precio).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</strong>
+                    <small>${p.stock > 0 ? 'En stock · ' + p.stock + ' und.' : 'Sin stock'}</small>
+                </div>
+                <button type="button" class="add-btn" data-id="${p.idProducto}" data-nombre="${p.nombre}" data-precio="${p.precio}" data-stock="${p.stock}">+ Agregar</button>
+            </div>
+        </article>
+    `).join('');
 }
 
-filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        const group = button.closest(".filter-group");
-
-        group.querySelectorAll(".filter-option").forEach((item) => {
-            item.classList.remove("active");
+async function loadCategories() {
+    try {
+        const res = await fetch("/api/categorias");
+        if (!res.ok) return;
+        const cats = await res.json();
+        const container = categoryFilters;
+        if (!container) return;
+        container.innerHTML = '<h3>CATEGORIAS</h3>';
+        const allBtn = document.createElement('button');
+        allBtn.className = 'filter-option active';
+        allBtn.dataset.category = 'Todos';
+        allBtn.textContent = 'Todos';
+        container.appendChild(allBtn);
+        cats.forEach(c => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-option';
+            btn.dataset.category = c.nombre;
+            btn.textContent = c.nombre;
+            container.appendChild(btn);
         });
+    } catch (_) {}
+}
 
-        button.classList.add("active");
+async function loadProducts() {
+    try {
+        const res = await fetch("/api/productos");
+        if (!res.ok) return;
+        allProducts = await res.json();
+        renderProducts();
+    } catch (e) {
+        productsGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-secondary);">Error al cargar productos</p>';
+    }
+}
 
-        if (button.dataset.category) {
-            selectedCategory = button.dataset.category;
-        }
-
-        if (button.dataset.price) {
-            selectedPrice = button.dataset.price;
-        }
-
-        if (button.dataset.stock) {
-            selectedStock = button.dataset.stock;
-        }
-
-        filterProducts();
-    });
+filtersAside.addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-option');
+    if (!btn) return;
+    const group = btn.closest('.filter-group');
+    if (!group) return;
+    group.querySelectorAll('.filter-option').forEach(item => item.classList.remove('active'));
+    btn.classList.add('active');
+    if (btn.dataset.category !== undefined) selectedCategory = btn.dataset.category;
+    if (btn.dataset.price !== undefined) selectedPrice = btn.dataset.price;
+    if (btn.dataset.stock !== undefined) selectedStock = btn.dataset.stock;
+    renderProducts();
 });
 
-document.querySelectorAll(".add-btn").forEach((button) => {
-    button.addEventListener("click", () => {
-        count += 1;
-        cartCount.textContent = count;
-    });
+productsGrid.addEventListener('click', (e) => {
+    const btn = e.target.closest('.add-btn');
+    if (!btn) return;
+    addToCart(Number(btn.dataset.id), btn.dataset.nombre, Number(btn.dataset.precio), Number(btn.dataset.stock));
 });
 
-searchInput.addEventListener("input", filterProducts);
-filterProducts();
+searchInput.addEventListener("input", renderProducts);
+
+updateCartCount();
+loadCategories();
+loadProducts();

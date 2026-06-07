@@ -115,32 +115,8 @@
 
             <h2>Mis Direcciones</h2>
 
-            <div class="address-grid"
+            <div class="addresses-grid"
                  data-user-addresses>
-
-                <article class="address-card primary"
-                         data-empty-state>
-
-                    <span class="tag green">
-                        Principal
-                    </span>
-
-                    <h3>
-                        Sin dirección registrada
-                    </h3>
-
-                    <p data-user-field="direccion"
-                       data-empty-value>
-                        -
-                    </p>
-
-                    <p>-</p>
-
-                    <button type="button">
-                        Editar
-                    </button>
-
-                </article>
 
                 <button type="button"
                         class="add-address"
@@ -159,8 +135,7 @@
 
 </main>
 
-<script type="module" th:src="@{/js/profile.js}"></script>
-<script type="module" th:src="@{/js/session.js}"></script>
+<script th:src="@{/js/profile.js}"></script>
 
 </body>
 </html>

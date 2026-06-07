@@ -136,6 +136,31 @@ function showConfirm(message, type = 'warning', confirmLabel = 'Confirmar') {
     });
 }
 
+/* ===== Auth Helpers ===== */
+
+function getAuthHeaders() {
+    const token = localStorage.getItem("token");
+    const headers = { "Content-Type": "application/json" };
+    if (token) headers["Authorization"] = "Bearer " + token;
+    return headers;
+}
+
+function getUserId() {
+    return localStorage.getItem("userId");
+}
+
+function getUserRol() {
+    return localStorage.getItem("userRol");
+}
+
+function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userRol");
+    window.location.href = "/login";
+}
+
 /* ===== Toast System ===== */
 
 function showToast(message, type = 'info') {

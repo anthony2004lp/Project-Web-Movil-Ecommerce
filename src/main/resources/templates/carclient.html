@@ -12,43 +12,7 @@
 <main class="cart-page">
     <section class="cart-layout">
         <section class="cart-items">
-            <a class="continue-btn" th:href="@{/catalogclient}">Seguir comprando</a>
-
-            <article class="cart-item" data-price="1120">
-                <div class="item-image">🖥️</div>
-
-                <div class="item-info">
-                    <h2>Módulo Remoto Schneider TM3</h2>
-                    <p>SKU: MR-002 · MÓDULO REMOTO</p>
-
-                    <div class="quantity">
-                        <button type="button" class="qty-btn minus">-</button>
-                        <strong class="qty-value">1</strong>
-                        <button type="button" class="qty-btn plus">+</button>
-                    </div>
-                </div>
-
-                <strong class="item-price">S/ 1,120.00</strong>
-                <button type="button" class="remove-btn">X</button>
-            </article>
-
-            <article class="cart-item" data-price="980">
-                <div class="item-image">📡</div>
-
-                <div class="item-info">
-                    <h2>Módulo ET 200SP Siemens</h2>
-                    <p>SKU: MR-001 · MÓDULO REMOTO</p>
-
-                    <div class="quantity">
-                        <button type="button" class="qty-btn minus">-</button>
-                        <strong class="qty-value">1</strong>
-                        <button type="button" class="qty-btn plus">+</button>
-                    </div>
-                </div>
-
-                <strong class="item-price">S/ 980.00</strong>
-                <button type="button" class="remove-btn">X</button>
-            </article>
+            <p style="text-align:center;padding:40px;color:var(--text-secondary);">Cargando carrito...</p>
         </section>
 
         <aside class="summary-card">
@@ -75,6 +39,10 @@
             </div>
 
             <form class="payment-form">
+                <h3>Dirección de envío</h3>
+                <input type="text" name="direccion" placeholder="Dirección completa" required>
+                <input type="text" name="ciudad" placeholder="Ciudad" required>
+
                 <label>MÉTODO DE PAGO</label>
                 <input type="text" placeholder="Número de tarjeta">
 

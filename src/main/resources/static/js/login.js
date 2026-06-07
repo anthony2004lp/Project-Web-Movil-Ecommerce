@@ -51,11 +51,15 @@ form.addEventListener("submit", async (event) => {
       message.textContent = "¡Bienvenido! Redirigiendo...";
       message.classList.add("success");
       
-      // Guardar datos en localStorage si es necesario
       if (data.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("userEmail", email);
         localStorage.setItem("userRol", rol);
+        // Decodificar JWT para obtener idUsuario
+        try {
+          const payload = JSON.parse(atob(data.token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+          if (payload.idUsuario) localStorage.setItem("userId", payload.idUsuario);
+        } catch (_) {}
       }
       
       setTimeout(() => {

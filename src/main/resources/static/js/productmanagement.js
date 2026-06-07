@@ -1,11 +1,39 @@
 const searchInput = document.getElementById("searchInput");
 const statusFilter = document.getElementById("statusFilter");
-const products = Array.from(document.querySelectorAll(".admin-product-card"));
+
+async function loadProducts() {
+    try {
+        const res = await fetch("/api/admin/productos", { headers: getAuthHeaders() });
+        if (!res.ok) return;
+        const products = await res.json();
+        const grid = document.getElementById("productGrid");
+        if (!grid) return;
+        if (!Array.isArray(products) || products.length === 0) {
+            grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-secondary);">No hay productos registrados</p>';
+            return;
+        }
+        grid.innerHTML = products.map(p => `
+            <article class="admin-product-card" data-product-id="${p.idProducto}" data-name="${p.nombre}" data-status="${p.activo ? 'activo' : 'inactivo'}">
+                <span class="status-badge ${p.activo ? 'active' : 'inactive'}">${p.activo ? 'Activo' : 'Inactivo'}</span>
+                <div class="product-image">📦</div>
+                <h2>${p.nombre}</h2>
+                <p>${p.categoria?.nombre || p.nombreCategoria || ''} · S/ ${Number(p.precio).toFixed(2)} · ${p.stock} und.</p>
+                <div class="admin-product-actions">
+                    <button class="edit-product-btn" data-id="${p.idProducto}" data-nombre="${p.nombre}" data-descripcion="${(p.descripcion || '').replace(/"/g, '&quot;')}" data-precio="${p.precio}" data-stock="${p.stock}" data-categoria="${p.categoria?.idCategoria || p.idCategoria || ''}" data-proveedor="${p.proveedor?.idProveedor || p.idProveedor || ''}">✏️ Editar</button>
+                    <button class="toggle-product-btn" data-id="${p.idProducto}" data-activo="${p.activo}">${p.activo ? '🚫 Desactivar' : '✅ Activar'}</button>
+                </div>
+            </article>
+        `).join('');
+        filterProducts();
+    } catch (e) {
+        showToast("Error al cargar productos", 'error');
+    }
+}
 
 function filterProducts() {
     const search = searchInput.value.trim().toLowerCase();
     const status = statusFilter.value;
-    products.forEach((product) => {
+    document.querySelectorAll(".admin-product-card").forEach((product) => {
         const name = product.dataset.name.toLowerCase();
         const productStatus = product.dataset.status;
         const matchesSearch = name.includes(search);
@@ -17,26 +45,100 @@ function filterProducts() {
 searchInput.addEventListener("input", filterProducts);
 statusFilter.addEventListener("change", filterProducts);
 
+document.getElementById("productGrid").addEventListener("click", async (e) => {
+    const editBtn = e.target.closest('.edit-product-btn');
+    if (editBtn) {
+        const id = editBtn.dataset.id;
+        const data = await showFormModal('Editar Producto', `
+            <label class="field">
+                <span>Nombre del producto</span>
+                <input type="text" name="nombre" value="${editBtn.dataset.nombre}" required>
+            </label>
+            <label class="field">
+                <span>Descripción</span>
+                <textarea name="descripcion" style="width:100%;min-height:60px;border:1px solid var(--field-border);border-radius:var(--radius-field);background:var(--field-bg);font:inherit;padding:10px 14px;">${editBtn.dataset.descripcion}</textarea>
+            </label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <label class="field">
+                    <span>Precio (S/)</span>
+                    <input type="number" name="precio" value="${editBtn.dataset.precio}" step="0.01" required>
+                </label>
+                <label class="field">
+                    <span>Stock</span>
+                    <input type="number" name="stock" value="${editBtn.dataset.stock}" required>
+                </label>
+            </div>
+        `, 'Guardar Cambios');
+        if (!data) return;
+        try {
+            const res = await fetch(`/api/admin/productos/${id}`, {
+                method: "PUT",
+                headers: getAuthHeaders(),
+                body: JSON.stringify({
+                    nombre: data.nombre,
+                    descripcion: data.descripcion || '',
+                    precio: Number(data.precio),
+                    stock: Number(data.stock),
+                    categoria: { idCategoria: Number(editBtn.dataset.categoria) || 1 },
+                    proveedor: { idProveedor: Number(editBtn.dataset.proveedor) || 1 }
+                })
+            });
+            if (res.ok) {
+                showToast(`Producto "${data.nombre}" actualizado`, 'success');
+                loadProducts();
+            } else {
+                const err = await res.json().catch(() => ({}));
+                showToast(err.mensaje || "Error al actualizar producto", 'error');
+            }
+        } catch (e) {
+            showToast("Error de conexión", 'error');
+        }
+        return;
+    }
+
+    const toggleBtn = e.target.closest('.toggle-product-btn');
+    if (toggleBtn) {
+        const id = toggleBtn.dataset.id;
+        const activo = toggleBtn.dataset.activo === 'true';
+        const confirmed = await showConfirm(`${activo ? 'Desactivar' : 'Activar'} producto #${id}?`, 'warning', 'Confirmar');
+        if (!confirmed) return;
+        try {
+            let res;
+            if (activo) {
+                res = await fetch(`/api/admin/productos/${id}`, {
+                    method: "DELETE",
+                    headers: getAuthHeaders()
+                });
+            } else {
+                res = await fetch(`/api/admin/productos/${id}`, {
+                    method: "PUT",
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({ activo: true })
+                });
+            }
+            if (res.ok) {
+                showToast(`Producto ${activo ? 'desactivado' : 'activado'}`, 'success');
+                loadProducts();
+            } else {
+                showToast("Error al cambiar estado", 'error');
+            }
+        } catch (e) {
+            showToast("Error de conexión", 'error');
+        }
+        return;
+    }
+});
+
 document.getElementById("newProductBtn").addEventListener("click", async () => {
     const data = await showFormModal('Nuevo Producto', `
         <label class="field">
             <span>Nombre del producto</span>
             <input type="text" name="nombre" placeholder="Nombre del producto" required>
         </label>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <label class="field">
-                <span>SKU</span>
-                <input type="text" name="sku" placeholder="PRO-001" required>
-            </label>
-            <label class="field">
-                <span>Categoría</span>
-                <select name="categoria" style="width:100%;min-height:44px;border:1px solid var(--field-border);border-radius:var(--radius-field);background:var(--field-bg);font:inherit;padding:0 14px;">
-                    <option value="Panel HMI">Panel HMI</option>
-                    <option value="PLC">PLC</option>
-                    <option value="Modulo Remoto">Módulo Remoto</option>
-                </select>
-            </label>
-        </div>
+        <label class="field">
+            <span>Descripción</span>
+            <textarea name="descripcion" placeholder="Descripción" style="width:100%;min-height:60px;border:1px solid var(--field-border);border-radius:var(--radius-field);background:var(--field-bg);font:inherit;padding:10px 14px;"></textarea>
+        </label>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
             <label class="field">
                 <span>Precio (S/)</span>
@@ -47,67 +149,41 @@ document.getElementById("newProductBtn").addEventListener("click", async () => {
                 <input type="number" name="stock" placeholder="0" required>
             </label>
         </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <label class="field">
+                <span>Categoría ID</span>
+                <input type="number" name="categoriaId" placeholder="1" value="1">
+            </label>
+            <label class="field">
+                <span>Proveedor ID</span>
+                <input type="number" name="proveedorId" placeholder="1" value="1">
+            </label>
+        </div>
     `, 'Crear Producto');
-    if (data) {
-        showToast(`Producto "${data.nombre}" creado correctamente`, 'success');
+    if (!data) return;
+    try {
+        const res = await fetch("/api/admin/productos", {
+            method: "POST",
+            headers: getAuthHeaders(),
+            body: JSON.stringify({
+                nombre: data.nombre,
+                descripcion: data.descripcion || '',
+                precio: Number(data.precio),
+                stock: Number(data.stock),
+                categoria: { idCategoria: Number(data.categoriaId) },
+                proveedor: { idProveedor: Number(data.proveedorId) }
+            })
+        });
+        if (res.ok) {
+            showToast(`Producto "${data.nombre}" creado`, 'success');
+            loadProducts();
+        } else {
+            const err = await res.json().catch(() => ({}));
+            showToast(err.mensaje || "Error al crear producto", 'error');
+        }
+    } catch (e) {
+        showToast("Error de conexión", 'error');
     }
 });
 
-document.querySelectorAll(".edit-btn").forEach((button) => {
-    button.addEventListener("click", async () => {
-        const card = button.closest(".admin-product-card");
-        const name = card.querySelector("h2").textContent.trim();
-        const data = await showFormModal('Editar Producto', `
-            <label class="field">
-                <span>Nombre del producto</span>
-                <input type="text" name="nombre" value="${name}" required>
-            </label>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                <label class="field">
-                    <span>Precio (S/)</span>
-                    <input type="number" name="precio" placeholder="0.00" step="0.01">
-                </label>
-                <label class="field">
-                    <span>Stock</span>
-                    <input type="number" name="stock" placeholder="0">
-                </label>
-            </div>
-        `, 'Guardar Cambios');
-        if (data) {
-            showToast(`Producto "${data.nombre}" actualizado`, 'success');
-        }
-    });
-});
-
-document.querySelectorAll(".activate-btn, .deactivate-btn").forEach((button) => {
-    button.addEventListener("click", async () => {
-        const card = button.closest(".admin-product-card");
-        const name = card.querySelector("h2").textContent.trim();
-        const isActive = button.classList.contains("activate-btn");
-        const confirmed = await showConfirm(
-            `¿${isActive ? 'Activar' : 'Desactivar'} producto <strong>${name}</strong>?`,
-            'warning',
-            isActive ? 'Activar' : 'Desactivar'
-        );
-        if (!confirmed) return;
-        const badge = card.querySelector(".status-badge");
-        if (isActive) {
-            card.dataset.status = "activo";
-            badge.className = "status-badge active";
-            badge.textContent = "Activo";
-            button.className = "deactivate-btn";
-            button.textContent = "Desactivar";
-            showToast(`Producto "${name}" activado`, 'success');
-        } else {
-            card.dataset.status = "inactivo";
-            badge.className = "status-badge inactive";
-            badge.textContent = "Inactivo";
-            button.className = "activate-btn";
-            button.textContent = "Activar";
-            showToast(`Producto "${name}" desactivado`, 'info');
-        }
-        filterProducts();
-    });
-});
-
-filterProducts();
+document.addEventListener('DOMContentLoaded', loadProducts);

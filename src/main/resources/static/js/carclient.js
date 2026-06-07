@@ -2,6 +2,15 @@ const subtotalElement = document.getElementById("subtotal");
 const taxElement = document.getElementById("tax");
 const totalElement = document.getElementById("total");
 const cartCountElement = document.getElementById("cartCount");
+const cartItemsSection = document.querySelector(".cart-items");
+
+function getCart() {
+    try { return JSON.parse(localStorage.getItem('cart') || '[]'); } catch { return []; }
+}
+
+function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
 
 function formatCurrency(value) {
     return `S/ ${value.toLocaleString("es-PE", {
@@ -10,63 +19,179 @@ function formatCurrency(value) {
     })}`;
 }
 
-function updateCart() {
-    const items = Array.from(document.querySelectorAll(".cart-item"));
+function renderCart() {
+    const cart = getCart();
+    if (cart.length === 0) {
+        cartItemsSection.innerHTML = `
+            <a class="continue-btn" href="/catalogclient">Seguir comprando</a>
+            <p style="text-align:center;padding:40px;color:var(--text-secondary);">Tu carrito está vacío</p>
+        `;
+        updateSummary();
+        return;
+    }
+
+    let itemsHtml = '<a class="continue-btn" href="/catalogclient">Seguir comprando</a>';
+    cart.forEach((item, index) => {
+        itemsHtml += `
+            <article class="cart-item" data-product-id="${item.idProducto}" data-price="${item.precio}" data-index="${index}">
+                <div class="item-image">📦</div>
+                <div class="item-info">
+                    <h2>${item.nombre}</h2>
+                    <p>S/ ${Number(item.precio).toFixed(2)} · ${item.stock} und. disponibles</p>
+                    <div class="quantity">
+                        <button type="button" class="qty-btn minus" data-index="${index}">-</button>
+                        <strong class="qty-value">${item.cantidad}</strong>
+                        <button type="button" class="qty-btn plus" data-index="${index}">+</button>
+                    </div>
+                </div>
+                <strong class="item-price">${formatCurrency(item.precio * item.cantidad)}</strong>
+                <button type="button" class="remove-btn" data-index="${index}">X</button>
+            </article>
+        `;
+    });
+    cartItemsSection.innerHTML = itemsHtml;
+    updateSummary();
+    updateCartCount();
+}
+
+function updateSummary() {
+    const cart = getCart();
     let subtotal = 0;
     let count = 0;
-    items.forEach((item) => {
-        const price = Number(item.dataset.price);
-        const quantity = Number(item.querySelector(".qty-value").textContent);
-        subtotal += price * quantity;
-        count += quantity;
-        item.querySelector(".item-price").textContent = formatCurrency(price * quantity);
+    cart.forEach(item => {
+        subtotal += item.precio * item.cantidad;
+        count += item.cantidad;
     });
     const tax = subtotal * 0.18;
     const total = subtotal + tax;
-    subtotalElement.textContent = formatCurrency(subtotal);
-    taxElement.textContent = formatCurrency(tax);
-    totalElement.textContent = formatCurrency(total);
-    cartCountElement.textContent = count;
+    if (subtotalElement) subtotalElement.textContent = formatCurrency(subtotal);
+    if (taxElement) taxElement.textContent = formatCurrency(tax);
+    if (totalElement) totalElement.textContent = formatCurrency(total);
+    if (cartCountElement) cartCountElement.textContent = count;
 }
 
-document.querySelectorAll(".plus").forEach((button) => {
-    button.addEventListener("click", () => {
-        const value = button.parentElement.querySelector(".qty-value");
-        value.textContent = Number(value.textContent) + 1;
-        updateCart();
-    });
-});
+function updateCartCount() {
+    const cart = getCart();
+    const total = cart.reduce((sum, item) => sum + item.cantidad, 0);
+    if (cartCountElement) cartCountElement.textContent = total;
+}
 
-document.querySelectorAll(".minus").forEach((button) => {
-    button.addEventListener("click", () => {
-        const value = button.parentElement.querySelector(".qty-value");
-        const current = Number(value.textContent);
-        if (current > 1) {
-            value.textContent = current - 1;
-            updateCart();
-        }
-    });
-});
+cartItemsSection.addEventListener('click', (e) => {
+    const cart = getCart();
 
-document.querySelectorAll(".remove-btn").forEach((button) => {
-    button.addEventListener("click", async () => {
-        const item = button.closest(".cart-item");
-        const name = item.querySelector("h2").textContent.trim();
-        const confirmed = await showConfirm(`¿Eliminar <strong>${name}</strong> del carrito?`, 'danger', 'Eliminar');
-        if (confirmed) {
-            item.remove();
-            updateCart();
-            showToast(`"${name}" eliminado del carrito`, 'info');
+    const plusBtn = e.target.closest('.plus');
+    if (plusBtn) {
+        const index = Number(plusBtn.dataset.index);
+        if (cart[index]) {
+            if (cart[index].cantidad < cart[index].stock) {
+                cart[index].cantidad += 1;
+                saveCart(cart);
+                renderCart();
+            } else {
+                showToast('Stock máximo alcanzado', 'error');
+            }
         }
-    });
+        return;
+    }
+
+    const minusBtn = e.target.closest('.minus');
+    if (minusBtn) {
+        const index = Number(minusBtn.dataset.index);
+        if (cart[index] && cart[index].cantidad > 1) {
+            cart[index].cantidad -= 1;
+            saveCart(cart);
+            renderCart();
+        }
+        return;
+    }
+
+    const removeBtn = e.target.closest('.remove-btn');
+    if (removeBtn) {
+        const index = Number(removeBtn.dataset.index);
+        const item = cart[index];
+        if (!item) return;
+        showConfirm(`¿Eliminar <strong>${item.nombre}</strong> del carrito?`, 'danger', 'Eliminar').then(confirmed => {
+            if (confirmed) {
+                cart.splice(index, 1);
+                saveCart(cart);
+                renderCart();
+                showToast(`"${item.nombre}" eliminado del carrito`, 'info');
+            }
+        });
+        return;
+    }
 });
 
 document.querySelector(".payment-form").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const confirmed = await showConfirm(`¿Confirmar el pago por <strong>${totalElement.textContent}</strong>?`, 'success', 'Pagar');
-    if (confirmed) {
-        showToast('Pago confirmado correctamente', 'success');
+
+    const userId = getUserId();
+    if (!userId) {
+        showToast("Debes iniciar sesión para pagar", 'error');
+        return;
+    }
+
+    const cart = getCart();
+    if (cart.length === 0) {
+        showToast("El carrito está vacío", 'error');
+        return;
+    }
+
+    const totalText = totalElement?.textContent || 'S/ 0.00';
+    const confirmed = await showConfirm(`¿Confirmar el pago por <strong>${totalText}</strong>?`, 'success', 'Pagar');
+    if (!confirmed) return;
+
+    const direccionInput = document.querySelector("input[name='direccion']");
+    const ciudadInput = document.querySelector("input[name='ciudad']");
+    const direccionEnvio = direccionInput?.value?.trim() || "Dirección no especificada";
+    const ciudadEnvio = ciudadInput?.value?.trim() || "Lima";
+
+    const checkoutItems = cart.map(item => ({
+        idProducto: item.idProducto,
+        cantidad: item.cantidad
+    }));
+
+    try {
+        const checkoutRes = await fetch("/api/ventas/checkout", {
+            method: "POST",
+            headers: getAuthHeaders(),
+            body: JSON.stringify({
+                idCliente: Number(userId),
+                direccionEnvio,
+                ciudadEnvio,
+                items: checkoutItems
+            })
+        });
+
+        if (!checkoutRes.ok) {
+            const err = await checkoutRes.json().catch(() => ({}));
+            showToast(err.mensaje || "Error en el checkout", 'error');
+            return;
+        }
+
+        const venta = await checkoutRes.json();
+
+        try {
+            await fetch("/api/pagos/registrar", {
+                method: "POST",
+                headers: getAuthHeaders(),
+                body: JSON.stringify({
+                    idVenta: venta.idVenta,
+                    metodoPago: "TARJETA",
+                    monto: cart.reduce((s, item) => s + item.precio * item.cantidad, 0) * 1.18,
+                    transaccionId: "TRX-" + Date.now()
+                })
+            });
+        } catch (_) {}
+
+        localStorage.removeItem('cart');
+        showToast(`¡Pedido #${venta.idVenta} confirmado!`, 'success');
+        renderCart();
+        document.querySelector(".payment-form")?.reset();
+
+    } catch (e) {
+        showToast("Error de conexión con el servidor", 'error');
     }
 });
 
-updateCart();
+renderCart();

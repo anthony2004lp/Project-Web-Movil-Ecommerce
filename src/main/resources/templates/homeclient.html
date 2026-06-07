@@ -14,7 +14,7 @@
             <div class="hero-content">
                 <h1>
                     Bienvenido,
-                    <span th:text="${usuarioActual != null ? usuarioActual.nombre : 'Cliente'}">Adrián</span>
+                    <span id="userNameDisplay">Cliente</span>
                     👋
                 </h1>
 
@@ -47,7 +47,7 @@
                                 <small>En stock · 5 und.</small>
                             </div>
 
-                            <a th:href="@{/catalogo}" class="add-button">+ Agregar</a>
+                            <a th:href="@{/catalogclient}" class="add-button">+ Agregar</a>
                         </div>
                     </div>
                 </article>
@@ -67,7 +67,7 @@
                                 <small>En stock · 5 und.</small>
                             </div>
 
-                            <a th:href="@{/catalogo}" class="add-button">+ Agregar</a>
+                            <a th:href="@{/catalogclient}" class="add-button">+ Agregar</a>
                         </div>
                     </div>
                 </article>
@@ -77,5 +77,22 @@
 
     <div th:replace="~{fragments/layout :: footer}"></div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+        try {
+            const res = await fetch('/api/profile?usuarioId=' + userId, {
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token'), 'Content-Type': 'application/json' }
+            });
+            if (res.ok) {
+                const data = await res.json();
+                const nameEl = document.getElementById('userNameDisplay');
+                if (nameEl) nameEl.textContent = data.nombres || 'Cliente';
+            }
+        } catch (e) {}
+    }
+});
+</script>
 </body>
 </html>

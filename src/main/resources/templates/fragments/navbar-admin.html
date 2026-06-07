@@ -24,7 +24,7 @@
                 <img th:src="@{/img/user.png}" alt="Admin Avatar" style="width:24px; height:24px; border-radius:50%;" loading="lazy">
                 <strong>Administrador</strong>
             </a>
-            <a class="button button-light" th:href="@{/login}">Salir</a>
+            <a class="button button-light" onclick="logout(); return false;" href="#">Salir</a>
         </div>
     </header>
 </body>

@@ -32,20 +32,9 @@
                         <input type="email" name="correo" placeholder="correo@ejemplo.com" required>
                     </label>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <label class="field">
-                            <span>Teléfono</span>
-                            <input type="tel" name="telefono" placeholder="+51 ..." required>
-                        </label>
-                        <label class="field">
-                            <span>DNI</span>
-                            <input type="text" name="dni" placeholder="DNI" required>
-                        </label>
-                    </div>
-
                     <label class="field">
-                        <span>Dirección de envío</span>
-                        <input type="text" name="direccion" placeholder="Dirección completa" required>
+                        <span>Teléfono</span>
+                        <input type="tel" name="telefono" placeholder="+51 999 888 777">
                     </label>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
@@ -73,5 +62,6 @@
 
 <!--        <div th:replace="~{fragments/layout :: footer}"></div>-->
     </div>
+    <script th:src="@{/js/register.js}" defer></script>
 </body>
 </html>
